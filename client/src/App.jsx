@@ -1,8 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomeLayout, AllBochaneks } from "./pages";
+import { HomeLayout, AllBochaneks, Login } from "./pages";
 
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
+// ACTIONS
+import { action as loginAction } from "./pages/Login";
 
 const router = createBrowserRouter([
 	{
@@ -13,6 +15,11 @@ const router = createBrowserRouter([
 				path: "/all-bochaneks",
 				element: <AllBochaneks />,
 				loader: allBochaneksLoader,
+			},
+			{
+				path: "/login",
+				element: <Login />,
+				action: loginAction,
 			},
 		],
 	},

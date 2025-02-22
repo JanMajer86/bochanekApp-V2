@@ -7,19 +7,16 @@ import Bochanek from "./models/BochanekModel.js";
 const app = express();
 app.use(express.json());
 
+// routers
+import authRouter from "./routes/authRouter.js";
+
 // ROUTES
+
+app.use("/api/v1/auth", authRouter);
+
 app.get("/api/v1/bochanek", async (req, res) => {
 	const bochanci = await Bochanek.find({});
 	res.status(200).json({ msg: "bochanek route", bochanci });
-});
-
-// TEST
-app.get("/api/v1/test", (req, res) => {
-	res.json({ msg: "test route" });
-});
-
-app.use("/api/v1", (req, res) => {
-	res.status(200).json({ msg: "hello from the server" });
 });
 
 // SERVER
