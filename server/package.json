@@ -1,0 +1,23 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"server": "nodemon --delay 500ms server.js",
+		"client": "cd ../client && npm run dev",
+		"dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"concurrently": "^9.1.2",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"express-async-errors": "^3.1.1",
+		"mongoose": "^8.10.1",
+		"morgan": "^1.10.0",
+		"nodemon": "^3.1.9"
+	}
+}
