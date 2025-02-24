@@ -3,20 +3,27 @@ import connectDB from "./utils/connectDB.js";
 import mongoose from "mongoose";
 import "dotenv/config";
 import Bochanek from "./models/BochanekModel.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 
 // routers
 import authRouter from "./routes/authRouter.js";
+// middleware
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 // ROUTES
 
 app.use("/api/v1/auth", authRouter);
 
-app.get("/api/v1/bochanek", async (req, res) => {
+app.get("/api/v1/bochanek", authenticateUser, async (req, res) => {
 	const bochanci = await Bochanek.find({});
 	res.status(200).json({ msg: "bochanek route", bochanci });
+});
+app.use("*", (req, res) => {
+	res.status(404).json({ msg: "not found" });
 });
 
 // SERVER
