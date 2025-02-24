@@ -20,10 +20,6 @@ import { authenticateUser } from "./middleware/authMiddleware.js";
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/bochanek", authenticateUser, bochanekRouter);
 
-// app.get("/api/v1/bochanek", authenticateUser, async (req, res) => {
-// 	const bochanci = await Bochanek.find({});
-// 	res.status(200).json({ msg: "bochanek route", bochanci });
-// });
 app.use("*", (req, res) => {
 	res.status(404).json({ msg: "not found" });
 });
