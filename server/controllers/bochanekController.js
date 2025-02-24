@@ -11,3 +11,9 @@ export const createBochanek = async (req, res) => {
 	const bochanek = await Bochanek.create(req.body);
 	res.status(200).json({ msg: "bochanek created", bochanek });
 };
+
+export const deleteBochanek = async (req, res) => {
+	const { id } = req.params;
+	const removedBochanek = await Bochanek.findByIdAndDelete(id);
+	res.status(200).json({ msg: "bochanek deleted", removedBochanek });
+};

@@ -5,6 +5,7 @@ import { HomeLayout, AllBochaneks, Login, Error } from "./pages";
 import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
+import { action as deleteAction } from "./pages/DeleteBochanek";
 
 const router = createBrowserRouter([
 	{
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
 				path: "/all-bochaneks",
 				element: <AllBochaneks />,
 				loader: allBochaneksLoader,
+			},
+			{
+				path: "/delete-bochanek/:id",
+				action: deleteAction,
 			},
 			{
 				path: "/login",
