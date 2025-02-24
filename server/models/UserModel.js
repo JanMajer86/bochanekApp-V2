@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { USERS } from "../utils/constants.js";
 
 const UserSchema = new mongoose.Schema({

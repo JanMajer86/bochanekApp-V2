@@ -1,5 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import customFetch from "../utils/customFetch";
+import Bochanek from "../components/Bochanek";
+import { useContext, createContext } from "react";
 
 export const loader = async () => {
 	try {
@@ -10,10 +12,27 @@ export const loader = async () => {
 	}
 };
 
+const BochanekContext = createContext();
+
 const AllBochaneks = () => {
 	const { data } = useLoaderData();
-	console.log(data);
+	const user = data.user;
 
-	return <div>{data.bochanci[0].name}</div>;
+	return (
+		<BochanekContext.Provider value={user}>
+			<div>
+				<ul>
+					{data.bochanci.map((bochanek) => {
+						return (
+							<li key={bochanek.name}>
+								<Bochanek {...bochanek} />
+							</li>
+						);
+					})}
+				</ul>
+			</div>
+		</BochanekContext.Provider>
+	);
 };
+export const useBochanekContext = () => useContext(BochanekContext);
 export default AllBochaneks;

@@ -19,12 +19,12 @@ const FormButtonSelect = ({ name, value1, value2 }) => {
 				<input
 					type="radio"
 					name="name"
-					id="{value2}"
-					value="{value2}"
+					id={value2}
+					value={value2}
 					required
 					className="checkbox-hidden"
 				/>
-				<label htmlFor="{value2}" className="btn btn-user">
+				<label htmlFor={value2} className="btn btn-user">
 					{value2}
 				</label>
 			</div>

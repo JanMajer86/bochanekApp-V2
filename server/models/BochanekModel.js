@@ -4,7 +4,6 @@ const BochanekSchema = new mongoose.Schema(
 	{
 		name: String,
 		gender: String,
-		status: String,
 		createdBy: String,
 	},
 	{ timestamps: true }
