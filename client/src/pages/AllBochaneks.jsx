@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Outlet } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import Bochanek from "../components/Bochanek";
 import { useContext, createContext } from "react";
@@ -20,6 +20,7 @@ const AllBochaneks = () => {
 
 	return (
 		<BochanekContext.Provider value={user}>
+			<Outlet />
 			<div>
 				<ul>
 					{data.bochanci.map((bochanek) => {

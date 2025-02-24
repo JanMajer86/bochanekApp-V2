@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Bochanek";
 import { useBochanekContext } from "../pages/AllBochaneks";
 
@@ -26,12 +26,14 @@ const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 			{isOwned && (
 				<div className="actions">
 					{/* EDIT */}
-					<button className="btn">
-						<span>
-							<FaEdit />
-						</span>
-						edit
-					</button>
+					<Link to="/all-bochaneks/edit-bochanek">
+						<button className="btn">
+							<span>
+								<FaEdit />
+							</span>
+							edit
+						</button>
+					</Link>
 					{/* DELETE */}
 					<Form method="POST" action={`/delete-bochanek/${_id}`}>
 						<button className="btn">

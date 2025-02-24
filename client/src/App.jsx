@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomeLayout, AllBochaneks, Login, Error } from "./pages";
+import { Modal } from "./components";
 
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
@@ -17,6 +18,12 @@ const router = createBrowserRouter([
 				path: "/all-bochaneks",
 				element: <AllBochaneks />,
 				loader: allBochaneksLoader,
+				children: [
+					{
+						path: "edit-bochanek",
+						element: <Modal />,
+					},
+				],
 			},
 			{
 				path: "/delete-bochanek/:id",
