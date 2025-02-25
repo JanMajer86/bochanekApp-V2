@@ -26,7 +26,7 @@ const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 			{isOwned && (
 				<div className="actions">
 					{/* EDIT */}
-					<Link to="/all-bochaneks/edit-bochanek">
+					<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
 						<button className="btn">
 							<span>
 								<FaEdit />

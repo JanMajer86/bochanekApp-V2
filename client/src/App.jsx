@@ -4,6 +4,7 @@ import { Modal } from "./components";
 
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
+import { loader as editLoader } from "./components/Modal";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
 import { action as deleteAction } from "./pages/DeleteBochanek";
@@ -20,8 +21,9 @@ const router = createBrowserRouter([
 				loader: allBochaneksLoader,
 				children: [
 					{
-						path: "edit-bochanek",
+						path: "edit-bochanek/:id",
 						element: <Modal />,
+						loader: editLoader,
 					},
 				],
 			},
