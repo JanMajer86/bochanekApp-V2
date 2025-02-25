@@ -1,7 +1,7 @@
 import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Modal";
 import customFetch from "../utils/customFetch";
-import { FormRow, FormButtonSelect } from "./";
+import { FormRow, FormButtonSelect } from ".";
 
 export const loader = async ({ params }) => {
 	try {
@@ -37,6 +37,7 @@ const Modal = () => {
 	return (
 		<Wrapper>
 			<div className="modal">
+				<h3>Edit Bochánek</h3>
 				<Form method="POST">
 					<FormRow
 						type="text"
