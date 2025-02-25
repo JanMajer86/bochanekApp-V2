@@ -11,10 +11,22 @@ const Wrapper = styled.div`
 	align-items: center;
 
 	.modal {
-		width: 350px;
-		height: 200px;
+		width: 384px;
+		padding: 16px;
+
+		/* height: 200px; */
 		background-color: white;
 		border-radius: 5px;
+		/* text-align: center; */
+	}
+
+	h3 {
+		text-align: center;
+		margin-bottom: 24px;
+	}
+
+	.btn-block {
+		margin-bottom: 4px;
 	}
 `;
 

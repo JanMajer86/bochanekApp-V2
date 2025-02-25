@@ -53,11 +53,14 @@ const Modal = () => {
 						defaultValue={data.bochanek.gender}
 					/>
 
-					<button type="submit">UPDATE</button>
+					<button type="submit" className="btn btn-block">
+						UPDATE
+					</button>
 				</Form>
-				<button onClick={() => navigate(-1)}>CANCEL</button>
+				<button className="btn btn-block" onClick={() => navigate(-1)}>
+					CANCEL
+				</button>
 			</div>
-			;
 		</Wrapper>
 	);
 };

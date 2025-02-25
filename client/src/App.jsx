@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomeLayout, AllBochaneks, Login, Error } from "./pages";
-import { EditModal } from "./components";
+import { CreateModal, EditModal } from "./components";
 
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
@@ -8,6 +8,7 @@ import { loader as editLoader } from "./components/EditModal";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
 import { action as deleteAction } from "./pages/DeleteBochanek";
+import { action as createAction } from "./components/CreateModal";
 import { action as editAction } from "./components/EditModal";
 
 const router = createBrowserRouter([
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
 						element: <EditModal />,
 						loader: editLoader,
 						action: editAction,
+					},
+					{
+						path: "create-bochanek",
+						element: <CreateModal />,
+						action: createAction,
 					},
 				],
 			},

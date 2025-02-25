@@ -6,7 +6,7 @@ const FormButtonSelect = ({
 	defaultValue = "",
 }) => {
 	return (
-		<div className="form-row">
+		<div className="form-row mb-24">
 			<label htmlFor={name} className="form-label">
 				{label || name}
 			</label>

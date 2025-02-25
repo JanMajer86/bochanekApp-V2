@@ -4,16 +4,16 @@ const Wrapper = styled.div`
 	/* width: 300px; */
 	display: flex;
 	justify-content: space-between;
-	border: 2px solid var(--grey-500);
-	border-radius: var(--border-radius);
+	border: 2px solid var(--black);
+
 	box-shadow: var(--shadow-1);
 	padding: 1rem;
 	margin: 0.6rem;
 
 	.first-letter {
-		background-color: ${(props) => (props.$gender === "male" ? "blue" : "red")};
-		border-radius: 2px;
-		color: var(--white);
+		display: inline-block;
+		background-color: var(--grey-600);
+		/* color: var(--white);	 */
 		text-transform: uppercase;
 	}
 

@@ -1,6 +1,8 @@
 import { Form, Link } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Bochanek";
 import { useBochanekContext } from "../pages/AllBochaneks";
+import { IoMale } from "react-icons/io5";
+import { IoFemale } from "react-icons/io5";
 
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -12,12 +14,14 @@ import { TiDeleteOutline } from "react-icons/ti";
 const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 	const user = useBochanekContext();
 	const isOwned = user.name === createdBy;
+	const isMale = gender === "male";
 	const date = day(updatedAt).format("MMM Do, YYYY");
 
 	return (
 		<Wrapper $gender={gender}>
 			<div className="info">
 				<h4>
+					<span className="icon">{isMale ? <IoMale /> : <IoFemale />}</span>
 					<span className="first-letter">{name.charAt(0)}</span>
 					<span className="name">{name.substring(1)}</span>
 				</h4>
