@@ -25,6 +25,7 @@ const Login = () => {
 			<Form method="POST" className="form">
 				<FormButtonSelect
 					name="name"
+					label="select user"
 					value1={userNames[0]}
 					value2={userNames[1]}
 				/>

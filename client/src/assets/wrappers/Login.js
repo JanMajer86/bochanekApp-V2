@@ -6,10 +6,7 @@ const Wrapper = styled.div`
 		justify-content: space-between;
 	}
 
-	.btn {
-	}
-
-	.btn-user {
+	.btn-radio {
 		width: 48%;
 	}
 

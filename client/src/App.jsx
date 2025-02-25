@@ -8,6 +8,7 @@ import { loader as editLoader } from "./components/Modal";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
 import { action as deleteAction } from "./pages/DeleteBochanek";
+import { action as editAction } from "./components/Modal";
 
 const router = createBrowserRouter([
 	{
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
 						path: "edit-bochanek/:id",
 						element: <Modal />,
 						loader: editLoader,
+						action: editAction,
 					},
 				],
 			},
