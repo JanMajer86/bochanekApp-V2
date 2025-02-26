@@ -1,29 +1,31 @@
 import express from "express";
 import connectDB from "./utils/connectDB.js";
-import mongoose from "mongoose";
 import "dotenv/config";
-import Bochanek from "./models/BochanekModel.js";
+import "express-async-errors";
 import cookieParser from "cookie-parser";
 
 const app = express();
+
+// middleware
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 app.use(cookieParser());
 app.use(express.json());
+app.use(errorHandlerMiddleware);
 
 // routers
 import authRouter from "./routes/authRouter.js";
 import bochanekRouter from "./routes/bochanekRouter.js";
-// middleware
-import { authenticateUser } from "./middleware/authMiddleware.js";
 
 // ROUTES
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/bochanek", authenticateUser, bochanekRouter);
-
+// non-valid route
 app.use("*", (req, res) => {
 	res.status(404).json({ msg: "not found" });
 });
 
+/////////
 // SERVER
 const port = process.env.PORT || 5000;
 

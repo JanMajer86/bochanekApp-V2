@@ -10,45 +10,40 @@ day.extend(advancedFormat);
 
 import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
+import { IconContext } from "react-icons/lib";
 
 const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 	const user = useBochanekContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "male";
 	const date = day(updatedAt).format("MMM Do, YYYY");
-
 	return (
 		<Wrapper $gender={gender}>
-			<div className="info">
-				<h4>
-					<span className="icon">{isMale ? <IoMale /> : <IoFemale />}</span>
-					<span className="first-letter">{name.charAt(0)}</span>
-					<span className="name">{name.substring(1)}</span>
-				</h4>
-				<p>{date}</p>
-			</div>
-			{isOwned && (
-				<div className="actions">
-					{/* EDIT */}
-					<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
-						<button className="btn">
-							<span>
-								<FaEdit />
-							</span>
-							edit
-						</button>
-					</Link>
-					{/* DELETE */}
-					<Form method="POST" action={`/delete-bochanek/${_id}`}>
-						<button className="btn">
-							<span>
-								<TiDeleteOutline />
-							</span>
-							delete
-						</button>
-					</Form>
+			<IconContext.Provider value={{ className: "shared-class", size: 36 }}>
+				<div className="name">
+					<h5>
+						{isMale ? <IoMale /> : <IoFemale />}
+						{name}
+					</h5>
 				</div>
-			)}
+				<div className="actions">
+					<p>{date}</p>
+					{isOwned && (
+						<div className="buttons">
+							<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
+								<button className="btn">
+									<FaEdit />
+								</button>
+							</Link>
+							<Form method="POST" action={`/delete-bochanek/${_id}`}>
+								<button className="btn">
+									<TiDeleteOutline />
+								</button>
+							</Form>
+						</div>
+					)}
+				</div>
+			</IconContext.Provider>
 		</Wrapper>
 	);
 };

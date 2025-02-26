@@ -309,7 +309,6 @@ button:disabled {
 
 .container {
 	width: 100vw;
-	height: 100vh;
 	/* width: var(--fluid-width); */
 	/* max-width: var(--max-width); */
 	display: flex;
