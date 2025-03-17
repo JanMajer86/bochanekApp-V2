@@ -2,9 +2,9 @@ import { body, param, validationResult } from "express-validator";
 import {
 	BadRequestError,
 	NotFoundError,
-	UnauthorizedErrorn,
-} from "../errors/customErrors";
-import { USERS } from "../utils/constants";
+	UnauthorizedError,
+} from "../errors/customErrors.js";
+import { USERS } from "../utils/constants.js";
 import mongoose from "mongoose";
 
 const withValidationErrors = (validateValues) => {
