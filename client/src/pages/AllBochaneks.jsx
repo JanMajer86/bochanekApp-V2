@@ -18,6 +18,19 @@ const AllBochaneks = () => {
 	const { data } = useLoaderData();
 	const user = data.user;
 
+	const groupNames = () => {
+		const obj = data.bochanci.reduce((acc, c) => {
+			const letter = c.name[0];
+			acc[letter] = (acc[letter] || [])
+				.concat(c)
+				.sort((x, y) => x.name.localeCompare(y.name));
+			return acc;
+		}, []);
+		return obj;
+	};
+
+	console.log(groupNames());
+
 	return (
 		<BochanekContext.Provider value={user}>
 			<Outlet />
@@ -26,9 +39,9 @@ const AllBochaneks = () => {
 					<button className="btn">ADD NEW</button>
 				</Link>
 				<ul>
-					{data.bochanci.map((bochanek) => {
+					{data.bochanci.map((bochanek, index) => {
 						return (
-							<li key={bochanek.name}>
+							<li key={index}>
 								<Bochanek {...bochanek} />
 							</li>
 						);
