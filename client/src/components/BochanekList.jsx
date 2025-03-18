@@ -1,4 +1,5 @@
 import Wrapper from "../assets/wrappers/BochanekList";
+import Bochanek from "./Bochanek";
 
 const BochanekList = ({ bochanci }) => {
 	return (
@@ -11,13 +12,9 @@ const BochanekList = ({ bochanci }) => {
 						</div>
 						<div className="group-names">
 							<ul>
-								{group.names.map((name) => {
-									return (
-										<li key={name._id}>
-											{name.name} - {name.gender}
-										</li>
-									);
-								})}
+								{group.names.map((bochanek) => (
+									<Bochanek key={bochanek._id} {...bochanek} />
+								))}
 							</ul>
 						</div>
 					</article>

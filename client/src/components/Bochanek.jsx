@@ -1,8 +1,7 @@
-import { Form, Link } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Bochanek";
+import { Form, Link } from "react-router-dom";
 import { useBochanekContext } from "../pages/AllBochaneks";
-import { IoMale } from "react-icons/io5";
-import { IoFemale } from "react-icons/io5";
+import { IoMale, IoFemale } from "react-icons/io5";
 
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -15,8 +14,9 @@ import { IconContext } from "react-icons/lib";
 const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 	const user = useBochanekContext();
 	const isOwned = user.name === createdBy;
-	const isMale = gender === "male";
+	const isMale = gender === "Male";
 	const date = day(updatedAt).format("MMM Do, YYYY");
+
 	return (
 		<Wrapper $gender={gender}>
 			<IconContext.Provider value={{ className: "shared-class", size: 36 }}>
