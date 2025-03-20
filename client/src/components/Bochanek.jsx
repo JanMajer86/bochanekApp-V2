@@ -1,7 +1,7 @@
 import Wrapper from "../assets/wrappers/Bochanek";
 import { Form, Link } from "react-router-dom";
-import { useBochanekContext } from "../pages/AllBochaneks";
-import { IoMale, IoFemale } from "react-icons/io5";
+import { useBochanekContext } from "../pages/DashboardLayout";
+import { IoMale, IoFemale, IoStarOutline } from "react-icons/io5";
 
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -12,35 +12,43 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { IconContext } from "react-icons/lib";
 
 const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
-	const user = useBochanekContext();
+	const { user } = useBochanekContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
 	const date = day(updatedAt).format("MMM Do, YYYY");
 
 	return (
 		<Wrapper $gender={gender}>
-			<IconContext.Provider value={{ className: "shared-class", size: 36 }}>
+			<IconContext.Provider value={{ className: "shared-class", size: 18 }}>
 				<div className="name">
-					<h5>
+					<h3>
 						{isMale ? <IoMale /> : <IoFemale />}
 						{name}
-					</h5>
+					</h3>
 				</div>
-				<div className="actions">
-					<p>{date}</p>
-					{isOwned && (
-						<div className="buttons">
+				{/* ACTIONS / BUTTONS */}
+				<div className="buttons">
+					{isOwned ? (
+						<>
+							<button className="btn">
+								<IoStarOutline />
+								RATE
+							</button>
 							<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
 								<button className="btn">
-									<FaEdit />
+									<FaEdit /> EDIT
 								</button>
 							</Link>
 							<Form method="POST" action={`/delete-bochanek/${_id}`}>
 								<button className="btn">
-									<TiDeleteOutline />
+									<TiDeleteOutline /> DELETE
 								</button>
 							</Form>
-						</div>
+						</>
+					) : (
+						<button className="btn">
+							<IoStarOutline /> RATE
+						</button>
 					)}
 				</div>
 			</IconContext.Provider>

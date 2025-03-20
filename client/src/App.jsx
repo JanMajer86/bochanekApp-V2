@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomeLayout, AllBochaneks, Login, Error } from "./pages";
+import { HomeLayout, DashboardLayout, Login, Error } from "./pages";
 import { CreateModal, EditModal } from "./components";
 
 // LOADERS
-import { loader as allBochaneksLoader } from "./pages/AllBochaneks";
+import { loader as allBochaneksLoader } from "./pages/DashboardLayout";
 import { loader as editLoader } from "./components/EditModal";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
@@ -17,9 +17,10 @@ const router = createBrowserRouter([
 		element: <HomeLayout />,
 		errorElement: <Error />,
 		children: [
+			{ index: true, element: <Login />, action: loginAction },
 			{
 				path: "/all-bochaneks",
-				element: <AllBochaneks />,
+				element: <DashboardLayout />,
 				loader: allBochaneksLoader,
 				children: [
 					{
@@ -38,11 +39,6 @@ const router = createBrowserRouter([
 			{
 				path: "/delete-bochanek/:id",
 				action: deleteAction,
-			},
-			{
-				path: "/login",
-				element: <Login />,
-				action: loginAction,
 			},
 		],
 	},

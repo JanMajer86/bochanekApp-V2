@@ -1,42 +1,38 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-	/* width: 300px; */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
 	border: 2px solid var(--black);
-	width: 400px;
+	width: 90%;
 
 	box-shadow: var(--shadow-1);
-	padding: 1rem;
+	padding: 0.2rem;
 	margin: 0.6rem;
-
-	.name svg {
-		margin-right: 8px;
-	}
 
 	.name {
 		border-bottom: 2px solid var(--grey-600);
-		width: max-content;
 		text-transform: uppercase;
-		margin-bottom: 24px;
 	}
-
-	.actions {
-		display: flex;
+	.name svg {
+		margin-right: 0.4rem;
 	}
 
 	.buttons {
 		display: flex;
+		height: max-content;
 	}
 
 	.btn {
-		margin: 0.2rem;
+		margin-left: 0.2rem;
 		padding: 0.375rem;
-		background: transparent;
-		border-radius: 100px;
-		border: none;
+		display: flex;
+		place-items: center;
 	}
 	.btn svg {
-		size: 3rem;
+		margin-right: 0.2rem;
 	}
 `;
 

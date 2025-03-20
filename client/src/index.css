@@ -74,6 +74,10 @@ html {
 	--text-color: var(--primary-800);
 	--background-secondary-color: var(--white);
 	--text-secondary-color: var(--grey-500);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .dark-theme {
@@ -307,13 +311,10 @@ button:disabled {
 	margin-top: 1rem;
 }
 
-.container {
-	width: 100vw;
+.app {
+	width: 95vw;
 	/* width: var(--fluid-width); */
-	/* max-width: var(--max-width); */
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	max-width: var(--max-width);
 }
 
 /* BUTTONS AND BADGES */

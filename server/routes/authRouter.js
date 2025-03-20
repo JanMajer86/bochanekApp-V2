@@ -5,6 +5,6 @@ import { validateLoginInput } from "../middleware/validationMiddleware.js";
 const router = Router();
 
 router.post("/login", validateLoginInput, login);
-router.post("/logout", logout);
+router.get("/logout", logout);
 
 export default router;

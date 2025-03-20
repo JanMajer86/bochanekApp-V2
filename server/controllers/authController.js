@@ -17,7 +17,7 @@ export const login = async (req, res) => {
 		secure: process.env.NODE_ENV === "production",
 	});
 
-	res.status(200).json({ msg: "user logged in" });
+	res.status(StatusCodes.OK).json({ msg: "user logged in" });
 };
 
 export const logout = (req, res) => {

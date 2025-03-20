@@ -2,7 +2,6 @@ import { Form, redirect, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Modal";
 import { FormRow, FormButtonSelect } from ".";
 import customFetch from "../utils/customFetch";
-// import { useBochanekContext } from "../pages/AllBochaneks";
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
