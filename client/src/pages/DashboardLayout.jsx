@@ -1,8 +1,8 @@
 import { useLoaderData, Outlet, Link, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 // import Bochanek from "../components/Bochanek";
-import { useContext, createContext, useMemo } from "react";
-import { BochanekList, Header } from "../components";
+import { useState, useContext, createContext, useMemo } from "react";
+import { Header, BochanekList } from "../components";
 
 export const loader = async () => {
 	try {
@@ -13,7 +13,7 @@ export const loader = async () => {
 	}
 };
 
-const BochanekContext = createContext();
+const GlobalContext = createContext();
 
 const DashboardLayout = () => {
 	const navigate = useNavigate();
@@ -43,22 +43,17 @@ const DashboardLayout = () => {
 	};
 
 	return (
-		<BochanekContext.Provider value={{ user, logoutUser }}>
+		<GlobalContext.Provider value={{ user, logoutUser }}>
 			{/* HEADER */}
 			<Header />
-			{/* CONTROL PANEL */}
-			{/* this outlet for modal popups */}
 
+			{/* this outlet for modal popups */}
 			<Outlet />
 			<div>
-				{/* <Link to="/all-bochaneks/create-bochanek">
-					<button className="btn">ADD NEW</button>
-				</Link> */}
-				{/* BOCHANCI */}
 				<BochanekList bochanci={groupedBochanci} />
 			</div>
-		</BochanekContext.Provider>
+		</GlobalContext.Provider>
 	);
 };
-export const useBochanekContext = () => useContext(BochanekContext);
+export const useGlobalContext = () => useContext(GlobalContext);
 export default DashboardLayout;

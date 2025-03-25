@@ -1,8 +1,8 @@
 import Wrapper from "../assets/wrappers/Header";
-import { useBochanekContext } from "../pages/DashboardLayout";
+import { useGlobalContext } from "../pages/DashboardLayout";
 
 const Header = () => {
-	const { user, logoutUser } = useBochanekContext();
+	const { user, logoutUser } = useGlobalContext();
 	console.log(user);
 	return (
 		<Wrapper>

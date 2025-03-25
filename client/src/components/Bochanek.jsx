@@ -1,6 +1,6 @@
 import Wrapper from "../assets/wrappers/Bochanek";
 import { Form, Link } from "react-router-dom";
-import { useBochanekContext } from "../pages/DashboardLayout";
+import { useGlobalContext } from "../pages/DashboardLayout";
 import { IoMale, IoFemale, IoStarOutline } from "react-icons/io5";
 
 import day from "dayjs";
@@ -12,10 +12,10 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { IconContext } from "react-icons/lib";
 
 const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
-	const { user } = useBochanekContext();
+	const { user } = useGlobalContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
-	const date = day(updatedAt).format("MMM Do, YYYY");
+	// const date = day(updatedAt).format("MMM Do, YYYY");
 
 	return (
 		<Wrapper $gender={gender}>
