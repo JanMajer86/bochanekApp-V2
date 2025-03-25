@@ -1,6 +1,6 @@
 import { useLoaderData, Outlet, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
-import { useContext, createContext, useMemo } from "react";
+import { useContext, createContext, useMemo, useState } from "react";
 import { Header, BochanekList } from "../components";
 
 export const loader = async () => {
@@ -12,28 +12,58 @@ export const loader = async () => {
 	}
 };
 
+const grouper = (data, keyGetter) => {
+	return data.reduce((result, item) => {
+		const key = keyGetter(item);
+		if (!result[key]) {
+			result[key] = [];
+		}
+		result[key].push(item);
+		return result;
+	}, {});
+};
+
 const GlobalContext = createContext();
 
 const DashboardLayout = () => {
+	const [groupBy, setGroupBy] = useState("user");
+
 	const navigate = useNavigate();
 	const { data } = useLoaderData();
 	const user = data.user;
 	const bochanci = data.bochanci;
 
 	const groupedBochanci = useMemo(() => {
-		const obj = bochanci.reduce((acc, c) => {
-			const letter = c.name[0];
-			acc[letter] = (acc[letter] || [])
-				.concat(c)
-				.sort((a, b) => a.name.localeCompare(b.name));
-			return acc;
-		}, {});
-		return Object.entries(obj)
-			.map(([letter, names]) => {
-				return { letter, names };
-			})
-			.sort((a, b) => a.letter > b.letter);
-	}, [bochanci]);
+		let keyGetter;
+		if (groupBy === "letter") keyGetter = (item) => item.name[0];
+		if (groupBy === "gender") keyGetter = (item) => item.gender;
+		if (groupBy === "user") keyGetter = (item) => item.createdBy;
+
+		const grouped = grouper(bochanci, keyGetter);
+		return Object.entries(grouped)
+			.map(([key, names]) => ({
+				groupKey: key,
+				names,
+			}))
+			.sort((a, b) => a.groupKey > b.groupKey);
+	}, [bochanci, groupBy]);
+
+	console.log(groupedBochanci);
+
+	// const groupedBochanci = useMemo(() => {
+	// 	const obj = bochanci.reduce((acc, c) => {
+	// 		const letter = c.name[0];
+	// 		acc[letter] = (acc[letter] || [])
+	// 			.concat(c)
+	// 			.sort((a, b) => a.name.localeCompare(b.name));
+	// 		return acc;
+	// 	}, {});
+	// 	return Object.entries(obj)
+	// 		.map(([letter, names]) => {
+	// 			return { letter, names };
+	// 		})
+	// 		.sort((a, b) => a.letter > b.letter);
+	// }, [bochanci]);
 
 	const logoutUser = async () => {
 		await customFetch.get("/auth/logout");
