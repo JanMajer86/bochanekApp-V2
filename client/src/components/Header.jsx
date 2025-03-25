@@ -3,7 +3,6 @@ import { useGlobalContext } from "../pages/DashboardLayout";
 
 const Header = () => {
 	const { user, logoutUser } = useGlobalContext();
-	console.log(user);
 	return (
 		<Wrapper>
 			<h2>logo here</h2>

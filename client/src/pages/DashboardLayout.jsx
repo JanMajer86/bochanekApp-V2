@@ -1,7 +1,6 @@
-import { useLoaderData, Outlet, Link, useNavigate } from "react-router-dom";
+import { useLoaderData, Outlet, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
-// import Bochanek from "../components/Bochanek";
-import { useState, useContext, createContext, useMemo } from "react";
+import { useContext, createContext, useMemo } from "react";
 import { Header, BochanekList } from "../components";
 
 export const loader = async () => {
@@ -50,6 +49,7 @@ const DashboardLayout = () => {
 			{/* this outlet for modal popups */}
 			<Outlet />
 			<div>
+				{/* BOCHANCI */}
 				<BochanekList bochanci={groupedBochanci} />
 			</div>
 		</GlobalContext.Provider>

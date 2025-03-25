@@ -5,3 +5,5 @@ export { default as FormButtonSelect } from "./FormButtonSelect";
 export { default as CreateModal } from "./CreateModal";
 export { default as EditModal } from "./EditModal";
 export { default as BochanekList } from "./BochanekList";
+export { default as Bochanek } from "./Bochanek";
+export { default as Sidebar } from "./Sidebar";
