@@ -26,7 +26,7 @@ const grouper = (data, keyGetter) => {
 const GlobalContext = createContext();
 
 const DashboardLayout = () => {
-	const [groupBy, setGroupBy] = useState("user");
+	const [groupBy, setGroupBy] = useState("letter");
 
 	const navigate = useNavigate();
 	const { data } = useLoaderData();
@@ -50,6 +50,10 @@ const DashboardLayout = () => {
 
 	console.log(groupedBochanci);
 
+	const handleGroupBy = (value) => {
+		setGroupBy(value);
+	};
+
 	// const groupedBochanci = useMemo(() => {
 	// 	const obj = bochanci.reduce((acc, c) => {
 	// 		const letter = c.name[0];
@@ -72,7 +76,7 @@ const DashboardLayout = () => {
 	};
 
 	return (
-		<GlobalContext.Provider value={{ user, logoutUser }}>
+		<GlobalContext.Provider value={{ user, logoutUser, handleGroupBy }}>
 			{/* HEADER */}
 			<Header />
 
