@@ -3,7 +3,7 @@ import { useGlobalContext } from "../pages/DashboardLayout";
 
 const ControlPanel = ({ isVisible }) => {
 	const { handleGroupBy } = useGlobalContext();
-	console.log(handleGroupBy);
+
 	return (
 		<Wrapper>
 			<div className={`control-panel ${isVisible ? "visible" : "hidden"}`}>

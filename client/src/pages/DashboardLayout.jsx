@@ -15,6 +15,7 @@ export const loader = async () => {
 const grouper = (data, keyGetter) => {
 	return data.reduce((result, item) => {
 		const key = keyGetter(item);
+		console.log(key);
 		if (!result[key]) {
 			result[key] = [];
 		}
@@ -27,7 +28,6 @@ const GlobalContext = createContext();
 
 const DashboardLayout = () => {
 	const [groupBy, setGroupBy] = useState("letter");
-
 	const navigate = useNavigate();
 	const { data } = useLoaderData();
 	const user = data.user;
@@ -42,13 +42,11 @@ const DashboardLayout = () => {
 		const grouped = grouper(bochanci, keyGetter);
 		return Object.entries(grouped)
 			.map(([key, names]) => ({
-				groupKey: key,
+				key,
 				names,
 			}))
-			.sort((a, b) => a.groupKey > b.groupKey);
+			.sort((a, b) => a.key > b.key);
 	}, [bochanci, groupBy]);
-
-	console.log(groupedBochanci);
 
 	const handleGroupBy = (value) => {
 		setGroupBy(value);
