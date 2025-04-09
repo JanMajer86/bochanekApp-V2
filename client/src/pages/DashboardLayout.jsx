@@ -12,69 +12,76 @@ export const loader = async () => {
 	}
 };
 
-const grouper = (data, keyGetter) => {
-	return data.reduce((result, item) => {
-		const key = keyGetter(item);
-		console.log(key);
-		if (!result[key]) {
-			result[key] = [];
-		}
-		result[key].push(item);
-		return result;
+const filterGroupSortData = (data, filterFn, groupFn) => {
+	// filtrování
+	const filteredData = filterFn ? data.filter(filterFn) : data;
+	// groupování
+	const groupedData = filteredData.reduce((acc, item) => {
+		const key = groupFn(item);
+		if (!acc[key]) acc[key] = [];
+		acc[key].push(item);
+		return acc;
 	}, {});
+
+	return { groupedData, results: filteredData.length };
 };
 
 const GlobalContext = createContext();
 
 const DashboardLayout = () => {
-	const [groupBy, setGroupBy] = useState("letter");
 	const navigate = useNavigate();
 	const { data } = useLoaderData();
 	const user = data.user;
 	const bochanci = data.bochanci;
 
-	const groupedBochanci = useMemo(() => {
-		let keyGetter;
-		if (groupBy === "letter") keyGetter = (item) => item.name[0];
-		if (groupBy === "gender") keyGetter = (item) => item.gender;
-		if (groupBy === "user") keyGetter = (item) => item.createdBy;
+	const [dataParamsObj, setDataParamsObj] = useState({
+		groupBy: "letter",
+		// sortBy: "alphabet",
+		// sortDirection: "asc",
+		genderFilter: null,
+		letterFilter: null,
+		userFilter: null,
+	});
 
-		const grouped = grouper(bochanci, keyGetter);
-		return Object.entries(grouped)
+	const filteredGroupedSortedData = useMemo(() => {
+		// *** FILTERING ***
+		const { genderFilter, letterFilter, userFilter } = dataParamsObj;
+		const filterFn = (item) =>
+			(!genderFilter || item.gender === genderFilter) &&
+			(!letterFilter ||
+				item.name[0].toUpperCase() === letterFilter.toUpperCase()) &&
+			(!userFilter || item.createdBy === userFilter);
+
+		// *** GROUPING ***
+		let groupFn = null;
+		if (dataParamsObj.groupBy === "letter") groupFn = (item) => item.name[0];
+		const { groupedData, results } = filterGroupSortData(
+			bochanci,
+			filterFn,
+			groupFn
+		);
+		const processed = Object.entries(groupedData)
 			.map(([key, names]) => ({
 				key,
 				names,
 			}))
 			.sort((a, b) => a.key > b.key);
-	}, [bochanci, groupBy]);
-
-	const handleGroupBy = (value) => {
-		setGroupBy(value);
-	};
-
-	// const groupedBochanci = useMemo(() => {
-	// 	const obj = bochanci.reduce((acc, c) => {
-	// 		const letter = c.name[0];
-	// 		acc[letter] = (acc[letter] || [])
-	// 			.concat(c)
-	// 			.sort((a, b) => a.name.localeCompare(b.name));
-	// 		return acc;
-	// 	}, {});
-	// 	return Object.entries(obj)
-	// 		.map(([letter, names]) => {
-	// 			return { letter, names };
-	// 		})
-	// 		.sort((a, b) => a.letter > b.letter);
-	// }, [bochanci]);
+		return { processed, results };
+	}, [bochanci, dataParamsObj]);
 
 	const logoutUser = async () => {
 		await customFetch.get("/auth/logout");
-		console.log("logout");
 		navigate("/");
 	};
 
 	return (
-		<GlobalContext.Provider value={{ user, logoutUser, handleGroupBy }}>
+		<GlobalContext.Provider
+			value={{
+				user,
+				logoutUser,
+				// handleDataProcessing
+			}}
+		>
 			{/* HEADER */}
 			<Header />
 
@@ -82,7 +89,7 @@ const DashboardLayout = () => {
 			<Outlet />
 			<div>
 				{/* BOCHANCI */}
-				<BochanekList bochanci={groupedBochanci} />
+				<BochanekList bochanci={filteredGroupedSortedData} />
 			</div>
 		</GlobalContext.Provider>
 	);

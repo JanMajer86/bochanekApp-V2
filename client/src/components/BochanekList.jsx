@@ -4,6 +4,10 @@ import ControlPanel from "./ControlPanel";
 import { useState } from "react";
 
 const BochanekList = ({ bochanci }) => {
+	const names = bochanci.processed;
+	const numOfResults = bochanci.results;
+	console.log(names);
+	console.log(numOfResults);
 	const [isControlPanel, setIsControlPanel] = useState(false);
 
 	const handleControlPanel = () => {
@@ -15,8 +19,9 @@ const BochanekList = ({ bochanci }) => {
 			<div className="bochanci">
 				{/* CONTROL PANEL */}
 				<ControlPanel isVisible={isControlPanel} />
+				<h4>results: {numOfResults}</h4>
 				{/* BOCHANEK LIST */}
-				{bochanci.map((group) => {
+				{names.map((group) => {
 					return (
 						<article className="group-segment" key={group.key}>
 							<div className="group-letter">
