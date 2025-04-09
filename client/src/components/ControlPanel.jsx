@@ -2,7 +2,7 @@ import Wrapper from "../assets/wrappers/ControlPanel";
 import { useGlobalContext } from "../pages/DashboardLayout";
 
 const ControlPanel = ({ isVisible }) => {
-	const { handleGroupBy } = useGlobalContext();
+	const { handleSetParamsObj } = useGlobalContext();
 
 	return (
 		<Wrapper>
@@ -10,13 +10,22 @@ const ControlPanel = ({ isVisible }) => {
 				<h4>ControlPanel</h4>
 				group by:
 				<div className="btn-control-row">
-					<button className="btn" onClick={() => handleGroupBy("letter")}>
+					<button
+						className="btn"
+						onClick={() => handleSetParamsObj("groupBy", "letter")}
+					>
 						ABECEDA
 					</button>
-					<button className="btn" onClick={() => handleGroupBy("gender")}>
+					<button
+						className="btn"
+						onClick={() => handleSetParamsObj("groupBy", "gender")}
+					>
 						GENDER
 					</button>
-					<button className="btn" onClick={() => handleGroupBy("user")}>
+					<button
+						className="btn"
+						onClick={() => handleSetParamsObj("groupBy", "user")}
+					>
 						PŘIDÁNO
 					</button>
 				</div>

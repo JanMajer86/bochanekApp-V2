@@ -15,6 +15,7 @@ export const loader = async () => {
 const filterGroupSortData = (data, filterFn, groupFn) => {
 	// filtrování
 	const filteredData = filterFn ? data.filter(filterFn) : data;
+
 	// groupování
 	const groupedData = filteredData.reduce((acc, item) => {
 		const key = groupFn(item);
@@ -53,8 +54,11 @@ const DashboardLayout = () => {
 			(!userFilter || item.createdBy === userFilter);
 
 		// *** GROUPING ***
-		let groupFn = null;
+		let groupFn;
 		if (dataParamsObj.groupBy === "letter") groupFn = (item) => item.name[0];
+		if (dataParamsObj.groupBy === "gender") groupFn = (item) => item.gender;
+		if (dataParamsObj.groupBy === "user") groupFn = (item) => item.createdBy;
+
 		const { groupedData, results } = filterGroupSortData(
 			bochanci,
 			filterFn,
@@ -69,6 +73,10 @@ const DashboardLayout = () => {
 		return { processed, results };
 	}, [bochanci, dataParamsObj]);
 
+	const handleSetParamsObj = (key, value) => {
+		setDataParamsObj((prev) => ({ ...prev, [key]: value }));
+	};
+
 	const logoutUser = async () => {
 		await customFetch.get("/auth/logout");
 		navigate("/");
@@ -79,6 +87,7 @@ const DashboardLayout = () => {
 			value={{
 				user,
 				logoutUser,
+				handleSetParamsObj,
 				// handleDataProcessing
 			}}
 		>
