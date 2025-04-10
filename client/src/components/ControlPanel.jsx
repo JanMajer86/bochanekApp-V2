@@ -1,34 +1,40 @@
 import Wrapper from "../assets/wrappers/ControlPanel";
 import { useGlobalContext } from "../pages/DashboardLayout";
+import { FilterButtonSelect } from "./";
 
 const ControlPanel = ({ isVisible }) => {
-	const { handleSetParamsObj } = useGlobalContext();
+	const { dataParamsObj, handleSetParamsObj } = useGlobalContext();
 
 	return (
 		<Wrapper>
 			<div className={`control-panel ${isVisible ? "visible" : "hidden"}`}>
 				<h4>ControlPanel</h4>
-				group by:
-				<div className="btn-control-row">
-					<button
-						className="btn"
-						onClick={() => handleSetParamsObj("groupBy", "letter")}
-					>
-						ABECEDA
-					</button>
-					<button
-						className="btn"
-						onClick={() => handleSetParamsObj("groupBy", "gender")}
-					>
-						GENDER
-					</button>
-					<button
-						className="btn"
-						onClick={() => handleSetParamsObj("groupBy", "user")}
-					>
-						PŘIDÁNO
-					</button>
-				</div>
+				{/* FILTERING */}
+				<FilterButtonSelect
+					label="filter by gender"
+					name="gender"
+					filter="genderFilter"
+					options={[
+						{ label: "Oboje", value: null },
+						{ label: "Holky", value: "Female" },
+						{ label: "Kluci", value: "Male" },
+					]}
+					selected={dataParamsObj.genderFilter}
+					onChange={handleSetParamsObj}
+				/>
+				{/* GROUPING */}
+				<FilterButtonSelect
+					label="group by"
+					name="group"
+					filter="groupBy"
+					options={[
+						{ label: "Abeceda", value: "letter" },
+						{ label: "Gender", value: "gender" },
+						{ label: "Uživatel", value: "user" },
+					]}
+					selected={dataParamsObj.groupBy}
+					onChange={handleSetParamsObj}
+				/>
 			</div>
 		</Wrapper>
 	);

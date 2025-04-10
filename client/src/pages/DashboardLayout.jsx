@@ -54,10 +54,11 @@ const DashboardLayout = () => {
 			(!userFilter || item.createdBy === userFilter);
 
 		// *** GROUPING ***
+		const { groupBy } = dataParamsObj;
 		let groupFn;
-		if (dataParamsObj.groupBy === "letter") groupFn = (item) => item.name[0];
-		if (dataParamsObj.groupBy === "gender") groupFn = (item) => item.gender;
-		if (dataParamsObj.groupBy === "user") groupFn = (item) => item.createdBy;
+		if (groupBy === "letter") groupFn = (item) => item.name[0];
+		if (groupBy === "gender") groupFn = (item) => item.gender;
+		if (groupBy === "user") groupFn = (item) => item.createdBy;
 
 		const { groupedData, results } = filterGroupSortData(
 			bochanci,
@@ -87,8 +88,8 @@ const DashboardLayout = () => {
 			value={{
 				user,
 				logoutUser,
+				dataParamsObj,
 				handleSetParamsObj,
-				// handleDataProcessing
 			}}
 		>
 			{/* HEADER */}
