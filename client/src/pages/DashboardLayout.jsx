@@ -12,21 +12,6 @@ export const loader = async () => {
 	}
 };
 
-const filterGroupSortData = (data, filterFn, groupFn) => {
-	// filtrování
-	const filteredData = filterFn ? data.filter(filterFn) : data;
-
-	// groupování
-	const groupedData = filteredData.reduce((acc, item) => {
-		const key = groupFn(item);
-		if (!acc[key]) acc[key] = [];
-		acc[key].push(item);
-		return acc;
-	}, {});
-
-	return { groupedData, results: filteredData.length };
-};
-
 const GlobalContext = createContext();
 
 const DashboardLayout = () => {
@@ -49,9 +34,20 @@ const DashboardLayout = () => {
 		const { genderFilter, letterFilter, userFilter } = dataParamsObj;
 		const filterFn = (item) =>
 			(!genderFilter || item.gender === genderFilter) &&
-			(!letterFilter ||
-				item.name[0].toUpperCase() === letterFilter.toUpperCase()) &&
 			(!userFilter || item.createdBy === userFilter);
+
+		const filteredData = bochanci.filter(filterFn);
+
+		// *** GET AVAILABLE LETTERS ***
+		const availableLetters = Array.from(
+			new Set(bochanci.map((item) => item.name[0].toUpperCase()))
+		).sort((a, b) => a.localeCompare(b, "cs"));
+
+		const letterFiltered = letterFilter
+			? filteredData.filter(
+					(item) => item.name[0].toUpperCase() === letterFilter.toUpperCase()
+			  )
+			: filteredData;
 
 		// *** GROUPING ***
 		const { groupBy } = dataParamsObj;
@@ -60,18 +56,22 @@ const DashboardLayout = () => {
 		if (groupBy === "gender") groupFn = (item) => item.gender;
 		if (groupBy === "user") groupFn = (item) => item.createdBy;
 
-		const { groupedData, results } = filterGroupSortData(
-			bochanci,
-			filterFn,
-			groupFn
-		);
+		const groupedData = letterFiltered.reduce((acc, item) => {
+			const key = groupFn(item);
+			if (!acc[key]) acc[key] = [];
+			acc[key].push(item);
+			return acc;
+		}, {});
+
+		// process => data into array
 		const processed = Object.entries(groupedData)
 			.map(([key, names]) => ({
 				key,
 				names,
 			}))
-			.sort((a, b) => a.key > b.key);
-		return { processed, results };
+			.sort((a, b) => a.key.localeCompare(b.key, "cs"));
+
+		return { processed, results: letterFiltered.length, availableLetters };
 	}, [bochanci, dataParamsObj]);
 
 	const handleSetParamsObj = (key, value) => {
@@ -90,6 +90,7 @@ const DashboardLayout = () => {
 				logoutUser,
 				dataParamsObj,
 				handleSetParamsObj,
+				filteredGroupedSortedData,
 			}}
 		>
 			{/* HEADER */}

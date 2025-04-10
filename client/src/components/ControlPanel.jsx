@@ -3,8 +3,10 @@ import { useGlobalContext } from "../pages/DashboardLayout";
 import { FilterButtonSelect } from "./";
 
 const ControlPanel = ({ isVisible }) => {
-	const { dataParamsObj, handleSetParamsObj } = useGlobalContext();
-
+	const { dataParamsObj, handleSetParamsObj, filteredGroupedSortedData } =
+		useGlobalContext();
+	const { availableLetters } = filteredGroupedSortedData;
+	console.log(availableLetters);
 	return (
 		<Wrapper>
 			<div className={`control-panel ${isVisible ? "visible" : "hidden"}`}>
@@ -22,6 +24,21 @@ const ControlPanel = ({ isVisible }) => {
 					selected={dataParamsObj.genderFilter}
 					onChange={handleSetParamsObj}
 				/>
+				{/* LETTER SELECT */}
+				<select
+					value={dataParamsObj.letterFilter || ""}
+					onChange={(e) =>
+						handleSetParamsObj("letterFilter", e.target.value || null)
+					}
+				>
+					<option value="">Všechna písmena</option>
+					{availableLetters.map((letter) => (
+						<option key={letter} value={letter}>
+							{letter}
+						</option>
+					))}
+				</select>
+
 				{/* GROUPING */}
 				<FilterButtonSelect
 					label="group by"
