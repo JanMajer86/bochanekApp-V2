@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
 	createBochanek,
+	createRating,
 	deleteBochanek,
 	editBochanek,
 	getAllBochaneks,
@@ -15,5 +16,6 @@ router
 	.get(getOneBochanek)
 	.patch(editBochanek)
 	.delete(deleteBochanek);
+router.route("/:id/rate").post(createRating);
 
 export default router;

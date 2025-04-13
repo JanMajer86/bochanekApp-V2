@@ -44,3 +44,29 @@ export const deleteBochanek = async (req, res) => {
 	const removedBochanek = await Bochanek.findByIdAndDelete(id);
 	res.status(StatusCodes.OK).json({ msg: "bochanek deleted", removedBochanek });
 };
+
+export const createRating = async (req, res) => {
+	const { value } = req.body;
+	const user = req.user;
+	const bochanek = await Bochanek.findById(req.params.id);
+
+	if (!bochanek)
+		return res.status(StatusCodes.NOT_FOUND).json({ msg: "product not found" });
+
+	const existingRating = bochanek.ratings.find(
+		(r) => r.user.toString() === user.userId.toString()
+	);
+
+	if (existingRating) {
+		existingRating.value = value;
+	} else {
+		bochanek.ratings.push({ user: user.userId, value });
+	}
+
+	bochanek.averateRating =
+		bochanek.ratings.reduce((acc, r) => acc + r.value, 0) /
+		bochanek.ratings.length;
+
+	await bochanek.save();
+	res.send(bochanek);
+};
