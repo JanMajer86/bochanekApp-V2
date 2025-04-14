@@ -63,7 +63,7 @@ export const createRating = async (req, res) => {
 		bochanek.ratings.push({ user: user.userId, value });
 	}
 
-	bochanek.averateRating =
+	bochanek.averageRating =
 		bochanek.ratings.reduce((acc, r) => acc + r.value, 0) /
 		bochanek.ratings.length;
 

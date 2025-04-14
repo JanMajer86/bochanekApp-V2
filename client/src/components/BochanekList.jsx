@@ -6,8 +6,8 @@ import { useState } from "react";
 const BochanekList = ({ bochanci }) => {
 	const names = bochanci.processed;
 	const numOfResults = bochanci.results;
-	console.log(names);
-	console.log(numOfResults);
+	// console.log(names);
+	// console.log(numOfResults);
 	const [isControlPanel, setIsControlPanel] = useState(false);
 
 	const handleControlPanel = () => {

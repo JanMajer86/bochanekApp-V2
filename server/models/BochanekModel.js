@@ -23,6 +23,10 @@ const BochanekSchema = new mongoose.Schema(
 		gender: String,
 		createdBy: String,
 		ratings: [RatingSchema],
+		averageRating: {
+			type: Number,
+			default: 0,
+		},
 	},
 	{ timestamps: true }
 );

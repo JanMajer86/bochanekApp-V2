@@ -10,11 +10,21 @@ day.extend(advancedFormat);
 import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { IconContext } from "react-icons/lib";
+import { StarRating } from "./";
+import customFetch from "../utils/customFetch";
+import { useState } from "react";
 
-const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
+const Bochanek = ({ _id, name, gender, createdBy, updatedAt, ratings }) => {
 	const { user } = useGlobalContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
+	const userRating = ratings.reduce((acc, cur) => {
+		if (cur.user.toString() === user.userId.toString()) acc += cur.value;
+		return acc;
+	}, 0);
+	// console.log(userRating);
+
+	const [rating, setRating] = useState(userRating);
 	// const date = day(updatedAt).format("MMM Do, YYYY");
 
 	return (
@@ -26,14 +36,24 @@ const Bochanek = ({ _id, name, gender, createdBy, updatedAt }) => {
 						{name}
 					</h3>
 				</div>
+				{/* STAR RATING HERE? */}
+				<StarRating
+					rating={rating}
+					onRate={(newRating) => {
+						customFetch
+							.post(`/bochanek/${_id}/rate`, { value: newRating })
+							.then(() => setRating(newRating));
+					}}
+				/>
 				{/* ACTIONS / BUTTONS */}
 				<div className="buttons">
 					{isOwned ? (
 						<>
-							<button className="btn">
-								<IoStarOutline />
-								RATE
-							</button>
+							<Link to={`/all-bochaneks/rate-bochanek/${_id}`}>
+								<button className="btn">
+									<IoStarOutline /> RATE
+								</button>
+							</Link>
 							<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
 								<button className="btn">
 									<FaEdit /> EDIT

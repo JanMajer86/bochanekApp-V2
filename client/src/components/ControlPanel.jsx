@@ -6,7 +6,6 @@ const ControlPanel = ({ isVisible }) => {
 	const { dataParamsObj, handleSetParamsObj, filteredGroupedSortedData } =
 		useGlobalContext();
 	const { availableLetters } = filteredGroupedSortedData;
-	console.log(availableLetters);
 	return (
 		<Wrapper>
 			<div className={`control-panel ${isVisible ? "visible" : "hidden"}`}>

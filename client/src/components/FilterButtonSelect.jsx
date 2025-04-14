@@ -8,7 +8,6 @@ const FilterButtonSelect = ({
 	selected,
 	onChange,
 }) => {
-	console.log(selected);
 	return (
 		// <fieldset style={{ border: "none", padding: 0, margin: "1rem 0" }}>
 		// 	<legend>

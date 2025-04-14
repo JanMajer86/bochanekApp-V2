@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomeLayout, DashboardLayout, Login, Error } from "./pages";
-import { CreateModal, EditModal } from "./components";
+import { CreateModal, EditModal, RateModal } from "./components";
 
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/DashboardLayout";
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
 						path: "create-bochanek",
 						element: <CreateModal />,
 						action: createAction,
+					},
+					{
+						path: "rate-bochanek/:id",
+						element: <RateModal />,
 					},
 				],
 			},
