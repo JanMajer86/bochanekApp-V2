@@ -14,15 +14,20 @@ import { StarRating } from "./";
 import customFetch from "../utils/customFetch";
 import { useState } from "react";
 
-const Bochanek = ({ _id, name, gender, createdBy, updatedAt, ratings }) => {
+const Bochanek = ({
+	_id,
+	name,
+	gender,
+	createdBy,
+	updatedAt,
+	ratings,
+	averageRating,
+}) => {
 	const { user } = useGlobalContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
-	const userRating = ratings.reduce((acc, cur) => {
-		if (cur.user.toString() === user.userId.toString()) acc += cur.value;
-		return acc;
-	}, 0);
-	// console.log(userRating);
+
+	const userRating = ratings.filter((r) => r.user === user.userId)[0].value;
 
 	const [rating, setRating] = useState(userRating);
 	// const date = day(updatedAt).format("MMM Do, YYYY");
@@ -37,6 +42,7 @@ const Bochanek = ({ _id, name, gender, createdBy, updatedAt, ratings }) => {
 					</h3>
 				</div>
 				{/* STAR RATING HERE? */}
+				{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
 				<StarRating
 					rating={rating}
 					onRate={(newRating) => {
