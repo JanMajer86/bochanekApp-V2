@@ -26,8 +26,8 @@ const CreateModal = () => {
 					<FormButtonSelect
 						name="gender"
 						label="select gender"
-						value1="male"
-						value2="female"
+						value1="Male"
+						value2="Female"
 					/>
 
 					<button type="submit" className="btn btn-block">
