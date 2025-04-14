@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-const StarRating = ({ rating, onRate }) => {
+const StarRatingInput = ({ rating, onRate }) => {
 	const [hovered, setHovered] = useState(null);
 
 	const renderStar = (index) => {
@@ -46,4 +46,4 @@ const StarRating = ({ rating, onRate }) => {
 		</div>
 	);
 };
-export default StarRating;
+export default StarRatingInput;

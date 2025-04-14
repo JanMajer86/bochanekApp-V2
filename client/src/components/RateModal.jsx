@@ -2,6 +2,7 @@ import { Form, redirect, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Modal";
 // import { FormRow, FormButtonSelect } from ".";
 import customFetch from "../utils/customFetch";
+import { StarRatingInput } from "./";
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
@@ -22,13 +23,14 @@ const CreateModal = () => {
 			<div className="modal">
 				<h3>RATE THIS BOCHÁNEK</h3>
 				<Form method="POST">
-					{/* <FormRow type="text" name="name" labelText="Bochánek - jméno" />
-					<FormButtonSelect
-						name="gender"
-						label="select gender"
-						value1="male"
-						value2="female"
-					/> */}
+					<StarRatingInput
+						rating={rating}
+						onRate={(newRating) => {
+							customFetch
+								.post(`/bochanek/${_id}/rate`, { value: newRating })
+								.then(() => setRating(newRating));
+						}}
+					/>
 
 					<button type="submit" className="btn btn-block">
 						RATE

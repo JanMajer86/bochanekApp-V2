@@ -10,7 +10,7 @@ day.extend(advancedFormat);
 import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { IconContext } from "react-icons/lib";
-import { StarRating } from "./";
+import { AverageRatingStars } from "./";
 import customFetch from "../utils/customFetch";
 import { useState } from "react";
 
@@ -43,14 +43,8 @@ const Bochanek = ({
 				</div>
 				{/* STAR RATING HERE? */}
 				{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
-				<StarRating
-					rating={rating}
-					onRate={(newRating) => {
-						customFetch
-							.post(`/bochanek/${_id}/rate`, { value: newRating })
-							.then(() => setRating(newRating));
-					}}
-				/>
+				<AverageRatingStars avgRating={averageRating} />
+
 				{/* ACTIONS / BUTTONS */}
 				<div className="buttons">
 					{isOwned ? (
