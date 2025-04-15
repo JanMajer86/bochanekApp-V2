@@ -5,11 +5,13 @@ import { CreateModal, EditModal, RateModal } from "./components";
 // LOADERS
 import { loader as allBochaneksLoader } from "./pages/DashboardLayout";
 import { loader as editLoader } from "./components/EditModal";
+import { loader as rateLoader } from "./components/RateModal";
 // ACTIONS
 import { action as loginAction } from "./pages/Login";
 import { action as deleteAction } from "./pages/DeleteBochanek";
 import { action as createAction } from "./components/CreateModal";
 import { action as editAction } from "./components/EditModal";
+import { action as rateAction } from "./components/RateModal";
 
 const router = createBrowserRouter([
 	{
@@ -37,6 +39,8 @@ const router = createBrowserRouter([
 					{
 						path: "rate-bochanek/:id",
 						element: <RateModal />,
+						loader: rateLoader,
+						action: rateAction,
 					},
 				],
 			},

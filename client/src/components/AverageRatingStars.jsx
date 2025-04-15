@@ -3,8 +3,6 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 const AverageRatingStars = ({ avgRating, size = 20 }) => {
 	const fullStars = Math.floor(avgRating);
 	const hasHalfStar = avgRating - fullStars >= 0.5;
-	console.log(fullStars);
-	console.log(Array(fullStars));
 
 	return (
 		<div style={{ fontSize: size }}>

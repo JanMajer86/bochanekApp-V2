@@ -1,14 +1,26 @@
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate, useLoaderData } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Modal";
-// import { FormRow, FormButtonSelect } from ".";
 import customFetch from "../utils/customFetch";
 import { StarRatingInput } from "./";
+import { useState } from "react";
 
-export const action = async ({ request }) => {
-	const formData = await request.formData();
-	const data = Object.fromEntries(formData);
+export const loader = async ({ request, params }) => {
 	try {
-		await customFetch.post("/bochanek", data);
+		const url = new URL(request.url);
+		const userRating = url.searchParams.get("userRating");
+		return { userRating, id: params.id };
+	} catch (error) {
+		console.log(error);
+	}
+	return null;
+};
+
+export const action = async ({ request, params }) => {
+	const formData = await request.formData();
+	const rating = parseInt(formData.get("rating"));
+	const { id } = params;
+	try {
+		await customFetch.post(`/bochanek/${id}/rate`, { value: rating });
 		return redirect("/all-bochaneks");
 	} catch (error) {
 		console.log(error);
@@ -16,22 +28,17 @@ export const action = async ({ request }) => {
 	return null;
 };
 
-const CreateModal = () => {
+const RateModal = () => {
 	const navigate = useNavigate();
+	const { userRating } = useLoaderData();
+	const [rating, setRating] = useState(userRating);
+
 	return (
 		<Wrapper>
 			<div className="modal">
 				<h3>RATE THIS BOCHÁNEK</h3>
 				<Form method="POST">
-					<StarRatingInput
-						rating={rating}
-						onRate={(newRating) => {
-							customFetch
-								.post(`/bochanek/${_id}/rate`, { value: newRating })
-								.then(() => setRating(newRating));
-						}}
-					/>
-
+					<StarRatingInput rating={rating} setRating={setRating} />
 					<button type="submit" className="btn btn-block">
 						RATE
 					</button>
@@ -43,4 +50,4 @@ const CreateModal = () => {
 		</Wrapper>
 	);
 };
-export default CreateModal;
+export default RateModal;

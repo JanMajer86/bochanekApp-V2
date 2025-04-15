@@ -10,14 +10,14 @@ export const loader = async ({ params }) => {
 	} catch (error) {
 		console.log(error);
 	}
-	console.log("modal loader");
+	// console.log("modal loader");
 	return null;
 };
 
 export const action = async ({ request, params }) => {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
-	console.log(data);
+	// console.log(data);
 	try {
 		await customFetch.patch(`/bochanek/${params.id}`, data);
 		return redirect("/all-bochaneks");
@@ -31,8 +31,8 @@ const Modal = () => {
 	const data = useLoaderData();
 	const navigate = useNavigate();
 
-	console.log(data.bochanek.name);
-	console.log(data.bochanek.gender);
+	// console.log(data.bochanek.name);
+	// console.log(data.bochanek.gender);
 
 	return (
 		<Wrapper>
@@ -48,8 +48,8 @@ const Modal = () => {
 					<FormButtonSelect
 						name="gender"
 						label="select gender"
-						value1="male"
-						value2="female"
+						value1="Male"
+						value2="Female"
 						defaultValue={data.bochanek.gender}
 					/>
 

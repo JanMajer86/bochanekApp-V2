@@ -1,48 +1,44 @@
 import { useState } from "react";
 
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
-const StarRatingInput = ({ rating, onRate }) => {
+const StarRatingInput = ({ rating, setRating }) => {
 	const [hovered, setHovered] = useState(null);
 
 	const renderStar = (index) => {
 		const displayValue = hovered !== null ? hovered : rating;
 		if (displayValue >= index + 1) return <FaStar />;
-		if (displayValue >= index + 0.5) return <FaStarHalfAlt />;
 		return <FaRegStar />;
 	};
 
-	const handleClick = (index, e) => {
-		const { offsetX, target } = e.nativeEvent;
-		const boxWidth = target.offsetWidth;
-		const isHalf = offsetX < boxWidth / 2;
-		const newRating = index + (isHalf ? 0.5 : 1);
-		onRate(newRating);
+	const handleMouseOverStar = (index) => {
+		setHovered(index);
 	};
 
-	const handleMouseMove = (index, e) => {
-		const { offsetX, target } = e.nativeEvent;
-		const boxWidth = target.offsetWidth;
-		const isHalf = offsetX < boxWidth / 2;
-		setHovered(index + (isHalf ? 0.5 : 1));
-	};
-
-	const handleMouseLeave = () => {
+	const handleMouseLeaveStar = () => {
 		setHovered(null);
+	};
+
+	const handleClickStar = (index) => {
+		setRating(index);
 	};
 
 	return (
 		<div>
-			{[0, 1, 2, 3, 4].map((i) => (
-				<span
-					key={i}
-					onClick={(e) => handleClick(i, e)}
-					onMouseMove={(e) => handleMouseMove(i, e)}
-					onMouseLeave={handleMouseLeave}
-				>
-					{renderStar(i)}
-				</span>
-			))}
+			<input type="hidden" name="rating" value={rating} />
+			<div>StarRatingInput --- current rating: {rating ?? "none"}</div>
+			<div>
+				{[...Array(5)].map((_, i) => (
+					<span
+						key={i + 1}
+						onMouseOver={() => handleMouseOverStar(i + 1)}
+						onMouseLeave={handleMouseLeaveStar}
+						onClick={() => handleClickStar(i + 1)}
+					>
+						{renderStar(i)}
+					</span>
+				))}
+			</div>
 		</div>
 	);
 };

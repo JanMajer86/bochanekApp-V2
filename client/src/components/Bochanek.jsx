@@ -11,26 +11,15 @@ import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { IconContext } from "react-icons/lib";
 import { AverageRatingStars } from "./";
-import customFetch from "../utils/customFetch";
-import { useState } from "react";
+// import customFetch from "../utils/customFetch";
+// import { useState } from "react";
 
-const Bochanek = ({
-	_id,
-	name,
-	gender,
-	createdBy,
-	updatedAt,
-	ratings,
-	averageRating,
-}) => {
+const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 	const { user } = useGlobalContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
-
-	const userRating = ratings.filter((r) => r.user === user.userId)[0].value;
-
-	const [rating, setRating] = useState(userRating);
-	// const date = day(updatedAt).format("MMM Do, YYYY");
+	const userRating = ratings.filter((r) => r.user === user.userId)[0]?.value;
+	const isRated = userRating !== undefined;
 
 	return (
 		<Wrapper $gender={gender}>
@@ -41,17 +30,23 @@ const Bochanek = ({
 						{name}
 					</h3>
 				</div>
-				{/* STAR RATING HERE? */}
 				{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
-				<AverageRatingStars avgRating={averageRating} />
-
+				{averageRating > 0 ? (
+					<AverageRatingStars avgRating={averageRating} />
+				) : (
+					<span>no rating</span>
+				)}
 				{/* ACTIONS / BUTTONS */}
 				<div className="buttons">
 					{isOwned ? (
 						<>
-							<Link to={`/all-bochaneks/rate-bochanek/${_id}`}>
+							<Link
+								to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
+									userRating ?? null
+								}`}
+							>
 								<button className="btn">
-									<IoStarOutline /> RATE
+									<IoStarOutline /> {isRated ? <>CHANGE RATING</> : <>RATE</>}
 								</button>
 							</Link>
 							<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
