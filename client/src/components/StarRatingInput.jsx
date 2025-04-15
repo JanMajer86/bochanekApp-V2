@@ -34,6 +34,7 @@ const StarRatingInput = ({ rating, setRating }) => {
 						onMouseOver={() => handleMouseOverStar(i + 1)}
 						onMouseLeave={handleMouseLeaveStar}
 						onClick={() => handleClickStar(i + 1)}
+						style={{ cursor: "pointer" }}
 					>
 						{renderStar(i)}
 					</span>
