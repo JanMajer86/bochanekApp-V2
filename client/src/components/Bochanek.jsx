@@ -61,9 +61,15 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 							</Form>
 						</>
 					) : (
-						<button className="btn">
-							<IoStarOutline /> RATE
-						</button>
+						<Link
+							to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
+								userRating ?? null
+							}`}
+						>
+							<button className="btn">
+								<IoStarOutline /> {isRated ? <>CHANGE RATING</> : <>RATE</>}
+							</button>
+						</Link>
 					)}
 				</div>
 			</IconContext.Provider>
