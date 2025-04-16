@@ -1,10 +1,11 @@
+import { Container } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {
 	return (
-		<div className="app">
+		<Container color="gray.950" fluid m="0" p="0">
 			<Outlet />
-		</div>
+		</Container>
 	);
 };
 export default HomeLayout;
