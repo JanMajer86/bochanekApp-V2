@@ -9,6 +9,7 @@ import {
 	Input,
 	HStack,
 	RadioCard,
+	Heading,
 } from "@chakra-ui/react";
 
 export const action = async ({ request }) => {
@@ -30,35 +31,38 @@ const Login = () => {
 
 	return (
 		<Center h="100vh" w="100vw" bg="gray.200">
-			<Box
-				bg="gray.50"
-				w="480px"
-				alignContent="center"
-				px="16"
-				py="12"
-				borderRadius={6}
-			>
+			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6}>
+				<Heading as="h3" mb="8" align={"right"}>
+					bochanekApp login
+				</Heading>
 				<Form method="POST">
 					{/* USER SELECT */}
 
 					<RadioCard.Root
 						name="name"
-						mb="8"
-						colorPalette="orange"
-						align="center"
 						variant="solid"
+						mb="4"
+						colorPalette="orange"
+						orientation="horizontal"
+						align="center"
+						justify="start"
 					>
 						<RadioCard.Label>select user</RadioCard.Label>
 						<HStack align="stretch">
 							{userNames.map((user) => {
 								return (
-									<RadioCard.Item key={user} value={user} p="0">
+									<RadioCard.Item
+										key={user}
+										value={user}
+										p="0"
+										h="10"
+										cursor="pointer"
+									>
 										<RadioCard.ItemHiddenInput />
 										<RadioCard.ItemControl>
-											<RadioCard.ItemText fontSize="md">
+											<RadioCard.ItemText mt={"-7px"} fontSize="md">
 												{user}
 											</RadioCard.ItemText>
-											{/* <RadioCard.ItemIndicator /> */}
 										</RadioCard.ItemControl>
 									</RadioCard.Item>
 								);
@@ -68,14 +72,14 @@ const Login = () => {
 
 					{/* PASSWORD */}
 
-					<Field.Root required mb="12" colorPalette="orange">
+					<Field.Root required mb="10" colorPalette="orange">
 						<Field.Label>password</Field.Label>
-						<Input type="password" name="password" />
+						<Input type="password" name="password" h="10" />
 					</Field.Root>
 
 					{/* SUBMIT BUTTON  */}
 
-					<Button type="submit" colorPalette="orange" w="100%">
+					<Button type="submit" colorPalette="orange" w="100%" h="10">
 						{isSubmitting ? "logging in..." : "login"}
 					</Button>
 				</Form>

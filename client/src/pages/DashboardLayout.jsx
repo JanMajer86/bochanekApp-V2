@@ -98,10 +98,8 @@ const DashboardLayout = () => {
 
 			{/* this outlet for modal popups */}
 			<Outlet />
-			<div>
-				{/* BOCHANCI */}
-				<BochanekList bochanci={filteredGroupedSortedData} />
-			</div>
+			{/* BOCHANCI */}
+			<BochanekList bochanci={filteredGroupedSortedData} />
 		</GlobalContext.Provider>
 	);
 };

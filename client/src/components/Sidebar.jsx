@@ -1,16 +1,30 @@
+import { Box, Button, Icon } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
+import { MdOutlineSettings, MdOutlineAddCircleOutline } from "react-icons/md";
 
 const Sidebar = ({ handleControlPanel }) => {
 	return (
-		<div>
-			<p>sidebar</p>
-			<button className="btn" onClick={handleControlPanel}>
-				control panel
-			</button>
+		<Box
+			display="flex"
+			justifyContent="space-between"
+			style={{ height: "calc(100vh - 60px)" }}
+			flexDirection={{ base: "row", lg: "column" }}
+		>
+			<Button
+				colorPalette="orange"
+				variant="surface"
+				onClick={handleControlPanel}
+			>
+				<Icon as={MdOutlineSettings} /> CONTROL PANEL
+			</Button>
+
 			<Link to="/all-bochaneks/create-bochanek">
-				<button className="btn">ADD NEW</button>
+				<Button colorPalette="orange" variant="solid" w={{ lg: "100%" }}>
+					<Icon as={MdOutlineAddCircleOutline} /> ADD NEW
+				</Button>
 			</Link>
-		</div>
+		</Box>
 	);
 };
 export default Sidebar;
