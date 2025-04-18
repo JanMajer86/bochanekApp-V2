@@ -30,6 +30,11 @@ const DashboardLayout = () => {
 	});
 
 	const filteredGroupedSortedData = useMemo(() => {
+		if (!Array.isArray(bochanci)) {
+			console.error("bochanci is not array!", bochanci);
+			return { processed: [], results: 0, availableLetters: [] };
+		}
+
 		// *** FILTERING ***
 		const { genderFilter, letterFilter, userFilter } = dataParamsObj;
 		const filterFn = (item) =>
@@ -40,14 +45,15 @@ const DashboardLayout = () => {
 
 		// *** GET AVAILABLE LETTERS ***
 		const availableLetters = Array.from(
-			new Set(bochanci.map((item) => item.name[0].toUpperCase()))
+			new Set(bochanci.map((item) => item.name[0]?.toUpperCase()))
 		).sort((a, b) => a.localeCompare(b, "cs"));
 
-		const letterFiltered = letterFilter
-			? filteredData.filter(
-					(item) => item.name[0].toUpperCase() === letterFilter.toUpperCase()
-			  )
-			: filteredData;
+		const letterFiltered =
+			letterFilter && typeof letterFilter === "string"
+				? filteredData.filter(
+						(item) => item.name[0]?.toUpperCase() === letterFilter.toUpperCase()
+				  )
+				: filteredData;
 
 		// *** GROUPING ***
 		const { groupBy } = dataParamsObj;
@@ -63,7 +69,6 @@ const DashboardLayout = () => {
 			return acc;
 		}, {});
 
-		// process => data into array
 		const processed = Object.entries(groupedData)
 			.map(([key, names]) => ({
 				key,
@@ -76,6 +81,7 @@ const DashboardLayout = () => {
 
 	const handleSetParamsObj = (key, value) => {
 		setDataParamsObj((prev) => ({ ...prev, [key]: value }));
+		console.log(dataParamsObj);
 	};
 
 	const logoutUser = async () => {
