@@ -93,9 +93,7 @@ const DashboardLayout = () => {
 				filteredGroupedSortedData,
 			}}
 		>
-			{/* HEADER */}
 			<Header />
-
 			{/* this outlet for modal popups */}
 			<Outlet />
 			{/* BOCHANCI */}

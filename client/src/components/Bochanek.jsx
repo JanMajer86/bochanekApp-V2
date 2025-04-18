@@ -68,7 +68,7 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 											userRating ?? null
 										}`}
 									>
-										<Button variant="ghost">
+										<Button variant="outline">
 											<Icon as={IoStarOutline} />
 											{isRated ? "Change Rating" : "Rate"}
 										</Button>
@@ -92,7 +92,7 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 										userRating ?? null
 									}`}
 								>
-									<Button variant="ghost">
+									<Button variant="outline">
 										<Icon as={IoStarOutline} />
 										{isRated ? "Change Rating" : "Rate"}
 									</Button>

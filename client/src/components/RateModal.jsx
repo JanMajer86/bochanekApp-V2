@@ -44,13 +44,14 @@ const RateModal = () => {
 			zIndex={10}
 		>
 			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
-				<Heading as="h3" mb="8">
-					{rating === "null" ? "rate bochánek" : "change rating"}
-				</Heading>
-
 				<Form method="POST">
 					{/* STAR RATE INPUT */}
-					<StarRatingInput rating={rating} setRating={setRating} />
+					<Center mb="8" flexDirection={"column"}>
+						<Heading as="h3" mb="6">
+							{rating === "null" ? "rate bochánek" : "change rating"}
+						</Heading>
+						<StarRatingInput rating={rating} setRating={setRating} />
+					</Center>
 					{/* SUBMIT / CANCEL */}
 					<Button type="submit" w="100%" mb="4" colorPalette="orange">
 						UPDATE
