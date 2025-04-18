@@ -21,6 +21,7 @@ const Header = () => {
 			color="gray.900"
 			px="4"
 			py="2"
+			mb="4"
 		>
 			<Flex
 				justify="space-between"

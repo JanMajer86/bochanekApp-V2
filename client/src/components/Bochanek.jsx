@@ -1,4 +1,3 @@
-import Wrapper from "../assets/wrappers/Bochanek";
 import { Form, Link } from "react-router-dom";
 import { useGlobalContext } from "../pages/DashboardLayout";
 import { IoMale, IoFemale, IoStarOutline } from "react-icons/io5";
@@ -9,10 +8,17 @@ day.extend(advancedFormat);
 
 import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
-import { IconContext } from "react-icons/lib";
 import { AverageRatingStars } from "./";
-// import customFetch from "../utils/customFetch";
-// import { useState } from "react";
+import {
+	Avatar,
+	Button,
+	Card,
+	Grid,
+	GridItem,
+	HStack,
+	Icon,
+	Text,
+} from "@chakra-ui/react";
 
 const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 	const { user } = useGlobalContext();
@@ -22,58 +28,81 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 	const isRated = userRating !== undefined;
 
 	return (
-		<Wrapper $gender={gender}>
-			<IconContext.Provider value={{ className: "shared-class", size: 18 }}>
-				<div className="name">
-					<h3>
-						{isMale ? <IoMale /> : <IoFemale />}
-						{name}
-					</h3>
-				</div>
-				{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
-				{averageRating > 0 ? (
-					<AverageRatingStars avgRating={averageRating} />
-				) : (
-					<span>no rating</span>
-				)}
-				{/* ACTIONS / BUTTONS */}
-				<div className="buttons">
-					{isOwned ? (
-						<>
-							<Link
-								to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
-									userRating ?? null
-								}`}
-							>
-								<button className="btn">
-									<IoStarOutline /> {isRated ? <>CHANGE RATING</> : <>RATE</>}
-								</button>
-							</Link>
-							<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
-								<button className="btn">
-									<FaEdit /> EDIT
-								</button>
-							</Link>
-							<Form method="POST" action={`/delete-bochanek/${_id}`}>
-								<button className="btn">
-									<TiDeleteOutline /> DELETE
-								</button>
-							</Form>
-						</>
-					) : (
-						<Link
-							to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
-								userRating ?? null
-							}`}
-						>
-							<button className="btn">
-								<IoStarOutline /> {isRated ? <>CHANGE RATING</> : <>RATE</>}
-							</button>
-						</Link>
-					)}
-				</div>
-			</IconContext.Provider>
-		</Wrapper>
+		<Card.Root
+			colorPalette="orange"
+			color="black"
+			bg="gray.100"
+			size="sm"
+			mx="4"
+			mb="4"
+			variant="subtle"
+		>
+			<Card.Body>
+				<Grid templateColumns="repeat(6, 1fr)" justifyContent="center">
+					<GridItem colSpan={2}>
+						<HStack>
+							<Avatar.Root mr="2">
+								<Avatar.Fallback name={name[0]} />
+							</Avatar.Root>
+							<Text fontWeight="bold" textStyle="lg">
+								{name}
+							</Text>
+							<Icon as={isMale ? IoMale : IoFemale} />
+						</HStack>
+					</GridItem>
+
+					<GridItem alignSelf={"center"}>
+						{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
+						{averageRating > 0 ? (
+							<AverageRatingStars avgRating={averageRating} />
+						) : (
+							<span>no rating</span>
+						)}
+					</GridItem>
+					<GridItem colSpan={3} justifySelf="end">
+						<HStack>
+							{isOwned ? (
+								<>
+									<Link
+										to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
+											userRating ?? null
+										}`}
+									>
+										<Button variant="ghost">
+											<Icon as={IoStarOutline} />
+											{isRated ? "Change Rating" : "Rate"}
+										</Button>
+									</Link>
+									<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
+										<Button variant="outline">
+											<Icon as={FaEdit} />
+											Edit
+										</Button>
+									</Link>
+									<Form method="POST" action={`/delete-bochanek/${_id}`}>
+										<Button variant="outline" type="submit">
+											<Icon as={TiDeleteOutline} />
+											Delete
+										</Button>
+									</Form>
+								</>
+							) : (
+								<Link
+									to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
+										userRating ?? null
+									}`}
+								>
+									<Button variant="ghost">
+										<Icon as={IoStarOutline} />
+										{isRated ? "Change Rating" : "Rate"}
+									</Button>
+								</Link>
+							)}
+						</HStack>
+					</GridItem>
+				</Grid>
+			</Card.Body>
+		</Card.Root>
 	);
 };
 export default Bochanek;

@@ -1,8 +1,8 @@
 import { Form, redirect, useNavigate, useLoaderData } from "react-router-dom";
-import Wrapper from "../assets/wrappers/Modal";
 import customFetch from "../utils/customFetch";
 import { StarRatingInput } from "./";
 import { useState } from "react";
+import { Center, Box, Button, Heading } from "@chakra-ui/react";
 
 export const loader = async ({ request, params }) => {
 	try {
@@ -34,20 +34,38 @@ const RateModal = () => {
 	const [rating, setRating] = useState(userRating);
 
 	return (
-		<Wrapper>
-			<div className="modal">
-				<h3>RATE THIS BOCHÁNEK</h3>
+		<Center
+			h="100vh"
+			w="100vw"
+			bg="gray.200/90"
+			position="absolute"
+			top="0"
+			left="0"
+			zIndex={10}
+		>
+			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
+				<Heading as="h3" mb="8">
+					{rating === "null" ? "rate bochánek" : "change rating"}
+				</Heading>
+
 				<Form method="POST">
+					{/* STAR RATE INPUT */}
 					<StarRatingInput rating={rating} setRating={setRating} />
-					<button type="submit" className="btn btn-block">
-						RATE
-					</button>
+					{/* SUBMIT / CANCEL */}
+					<Button type="submit" w="100%" mb="4" colorPalette="orange">
+						UPDATE
+					</Button>
+					<Button
+						onClick={() => navigate(-1)}
+						w="100%"
+						colorPalette="orange"
+						variant="outline"
+					>
+						CANCEL
+					</Button>
 				</Form>
-				<button className="btn btn-block" onClick={() => navigate(-1)}>
-					CANCEL
-				</button>
-			</div>
-		</Wrapper>
+			</Box>
+		</Center>
 	);
 };
 export default RateModal;

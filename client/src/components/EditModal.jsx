@@ -1,7 +1,15 @@
 import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom";
-import Wrapper from "../assets/wrappers/Modal";
 import customFetch from "../utils/customFetch";
-import { FormRow, FormButtonSelect } from ".";
+import {
+	Box,
+	Button,
+	Center,
+	Field,
+	Heading,
+	HStack,
+	Input,
+	RadioCard,
+} from "@chakra-ui/react";
 
 export const loader = async ({ params }) => {
 	try {
@@ -10,14 +18,12 @@ export const loader = async ({ params }) => {
 	} catch (error) {
 		console.log(error);
 	}
-	// console.log("modal loader");
 	return null;
 };
 
 export const action = async ({ request, params }) => {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
-	// console.log(data);
 	try {
 		await customFetch.patch(`/bochanek/${params.id}`, data);
 		return redirect("/all-bochaneks");
@@ -31,37 +37,89 @@ const Modal = () => {
 	const data = useLoaderData();
 	const navigate = useNavigate();
 
-	// console.log(data.bochanek.name);
-	// console.log(data.bochanek.gender);
-
 	return (
-		<Wrapper>
-			<div className="modal">
-				<h3>Edit Bochánek</h3>
-				<Form method="POST">
-					<FormRow
-						type="text"
-						name="name"
-						labelText="Bochánek - jméno"
-						defaultValue={data.bochanek.name}
-					/>
-					<FormButtonSelect
-						name="gender"
-						label="select gender"
-						value1="Male"
-						value2="Female"
-						defaultValue={data.bochanek.gender}
-					/>
+		<Center
+			h="100vh"
+			w="100vw"
+			bg="gray.200/90"
+			position="absolute"
+			top="0"
+			left="0"
+			zIndex={10}
+		>
+			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
+				<Heading as="h3" mb="8">
+					Edit Bochánek
+				</Heading>
 
-					<button type="submit" className="btn btn-block">
+				<Form method="POST">
+					{/* NAME INPUT */}
+					<Field.Root required mb="4">
+						<Field.Label>input name</Field.Label>
+						<Input
+							type="text"
+							id="name"
+							name="name"
+							defaultValue={data.bochanek.name}
+						/>
+					</Field.Root>
+					{/* GENDER SELECT */}
+					<RadioCard.Root
+						name="gender"
+						variant="solid"
+						mb="10"
+						colorPalette="orange"
+						orientation="horizontal"
+						align="center"
+						justify="start"
+						defaultValue={data.bochanek.gender}
+					>
+						<RadioCard.Label>select gender</RadioCard.Label>
+						<HStack align="stretch">
+							<RadioCard.Item
+								// name="gender"
+								value="Male"
+								p="0"
+								h="10"
+								cursor="pointer"
+							>
+								<RadioCard.ItemHiddenInput />
+								<RadioCard.ItemControl>
+									<RadioCard.ItemText mt={"-7px"} fontSize="md">
+										MALE
+									</RadioCard.ItemText>
+								</RadioCard.ItemControl>
+							</RadioCard.Item>
+							<RadioCard.Item
+								// name="gender"
+								value="Female"
+								p="0"
+								h="10"
+								cursor="pointer"
+							>
+								<RadioCard.ItemHiddenInput />
+								<RadioCard.ItemControl>
+									<RadioCard.ItemText mt={"-7px"} fontSize="md">
+										FEMALE
+									</RadioCard.ItemText>
+								</RadioCard.ItemControl>
+							</RadioCard.Item>
+						</HStack>
+					</RadioCard.Root>
+					<Button type="submit" w="100%" mb="4" colorPalette="orange">
 						UPDATE
-					</button>
+					</Button>
+					<Button
+						onClick={() => navigate(-1)}
+						w="100%"
+						colorPalette="orange"
+						variant="outline"
+					>
+						CANCEL
+					</Button>
 				</Form>
-				<button className="btn btn-block" onClick={() => navigate(-1)}>
-					CANCEL
-				</button>
-			</div>
-		</Wrapper>
+			</Box>
+		</Center>
 	);
 };
 export default Modal;

@@ -8,7 +8,8 @@ const Sidebar = ({ handleControlPanel }) => {
 		<Box
 			display="flex"
 			justifyContent="space-between"
-			style={{ height: "calc(100vh - 60px)" }}
+			// style={{ height: "calc(100vh - 86px)" }}
+			h={{ base: "min-content", lg: "calc(100vh - 86px)" }}
 			flexDirection={{ base: "row", lg: "column" }}
 		>
 			<Button

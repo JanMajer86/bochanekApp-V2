@@ -1,4 +1,11 @@
-import { Box, Center, Container, Grid, GridItem } from "@chakra-ui/react";
+import {
+	Box,
+	Center,
+	Grid,
+	GridItem,
+	Heading,
+	ListRoot,
+} from "@chakra-ui/react";
 import { Bochanek, Sidebar } from "./";
 import ControlPanel from "./ControlPanel";
 import { useState } from "react";
@@ -13,7 +20,7 @@ const BochanekList = ({ bochanci }) => {
 	};
 
 	return (
-		<Center mt={4}>
+		<Center>
 			<Grid
 				templateColumns="repeat(6, 1fr)"
 				// border={"1px solid black"}
@@ -28,26 +35,27 @@ const BochanekList = ({ bochanci }) => {
 				>
 					<Box bg="white" h="100%">
 						{/* CONTROL PANEL */}
+						{/* HIDDEN BY DEFAULT */}
 						<ControlPanel isVisible={isControlPanel} />
 
-						<h4>results: {numOfResults}</h4>
+						<Heading mb="4">results: {numOfResults}</Heading>
 						{/* BOCHANEK LIST */}
-						{/* {names.map((group) => {
-						return (
-							<article className="group-segment" key={group.key}>
-								<div className="group-letter">
-									<h4>{group.key}</h4>
-								</div>
-								<div className="group-names">
-									<ul>
-										{group.names.map((bochanek) => (
-											<Bochanek key={bochanek._id} {...bochanek} />
-										))}
-									</ul>
-								</div>
-							</article>
-						);
-					})} */}
+						{names.map((group) => {
+							return (
+								<Grid templateColumns={"48px auto"} key={group.key}>
+									<GridItem>
+										<Heading as="h2">{group.key}</Heading>
+									</GridItem>
+									<GridItem>
+										<ListRoot>
+											{group.names.map((bochanek) => (
+												<Bochanek key={bochanek._id} {...bochanek} />
+											))}
+										</ListRoot>
+									</GridItem>
+								</Grid>
+							);
+						})}
 					</Box>
 				</GridItem>
 				{/* SIDEBAR */}
