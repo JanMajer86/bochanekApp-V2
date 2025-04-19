@@ -8,7 +8,6 @@ import {
 	HStack,
 	Text,
 } from "@chakra-ui/react";
-// import Wrapper from "../assets/wrappers/Header";
 import { useGlobalContext } from "../pages/DashboardLayout";
 
 const Header = () => {
@@ -23,12 +22,7 @@ const Header = () => {
 			py="2"
 			mb="4"
 		>
-			<Flex
-				justify="space-between"
-				width="90vw"
-				maxW={"1200px"}
-				// border={"1px solid black"}
-			>
+			<Flex justify="space-between" width="90vw" maxW={"1200px"}>
 				<Heading size="4xl">bochanekApp</Heading>
 				<Box>
 					<HStack>

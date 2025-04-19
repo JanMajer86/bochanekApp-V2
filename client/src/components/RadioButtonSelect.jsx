@@ -13,7 +13,7 @@ const RadioButtonSelect = ({
 			<RadioCard.Root
 				value={selected || ""}
 				colorPalette="orange"
-				size="sm"
+				size="xs"
 				variant="surface"
 			>
 				<RadioCard.Label>{label || name}</RadioCard.Label>

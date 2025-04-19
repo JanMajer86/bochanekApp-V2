@@ -1,13 +1,17 @@
 import { Box, Portal, Select } from "@chakra-ui/react";
 import { useGlobalContext } from "../pages/DashboardLayout";
 import { RadioButtonSelect } from "./";
-// import { TbLetterM } from "react-icons/tb";
 
 const ControlPanel = ({ isVisible }) => {
 	const { dataParamsObj, handleSetParamsObj, filteredGroupedSortedData } =
 		useGlobalContext();
 
 	const { availableLetters } = filteredGroupedSortedData;
+	const lettersObs = availableLetters.map((letter) => ({
+		label: letter,
+		value: letter,
+	}));
+	const letters = [{ label: "Všechny písmena", value: "all" }, ...lettersObs];
 
 	const visible = {
 		visibility: "visible",
@@ -43,11 +47,14 @@ const ControlPanel = ({ isVisible }) => {
 
 			{/* LETTER SELECT */}
 			<Select.Root
-				w="120px"
+				// w="120px"
 				value={[dataParamsObj.letterFilter]}
+				alignContent={"start"}
 				onValueChange={(e) => {
 					const value = e?.value[0] || null;
 					console.log(value);
+					if (value === "all") return handleSetParamsObj("letterFilter", null);
+
 					handleSetParamsObj("letterFilter", e.value[0]);
 				}}
 			>
@@ -55,7 +62,9 @@ const ControlPanel = ({ isVisible }) => {
 				<Select.Label>filter by first letter</Select.Label>
 				<Select.Control>
 					<Select.Trigger>
-						<Select.ValueText placeholder="všechny písmena" />
+						<Select.ValueText>
+							{dataParamsObj.letterFilter || "všechny písmena"}
+						</Select.ValueText>
 					</Select.Trigger>
 					<Select.IndicatorGroup>
 						<Select.Indicator />
@@ -64,9 +73,13 @@ const ControlPanel = ({ isVisible }) => {
 				<Portal>
 					<Select.Positioner>
 						<Select.Content>
-							{availableLetters.map((letter) => (
-								<Select.Item key={letter} value={letter} item={letter}>
-									{letter}
+							{letters.map((letter) => (
+								<Select.Item
+									key={letter.label}
+									value={letter.value}
+									item={letter.value}
+								>
+									{letter.label}
 								</Select.Item>
 							))}
 						</Select.Content>

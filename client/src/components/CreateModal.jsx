@@ -5,7 +5,7 @@ import {
 	Center,
 	Field,
 	Heading,
-	HStack,
+	Group,
 	Input,
 	RadioCard,
 } from "@chakra-ui/react";
@@ -55,12 +55,11 @@ const CreateModal = () => {
 						orientation="horizontal"
 						align="center"
 						justify="start"
-						required
 					>
 						<RadioCard.Label>select gender</RadioCard.Label>
-						<HStack align="stretch">
+						<Group attached orientation="horizontal">
 							<RadioCard.Item value="Male" p="0" h="10" cursor="pointer">
-								<RadioCard.ItemHiddenInput />
+								<RadioCard.ItemHiddenInput required />
 								<RadioCard.ItemControl>
 									<RadioCard.ItemText mt={"-7px"} fontSize="md">
 										MALE
@@ -81,7 +80,7 @@ const CreateModal = () => {
 									</RadioCard.ItemText>
 								</RadioCard.ItemControl>
 							</RadioCard.Item>
-						</HStack>
+						</Group>
 					</RadioCard.Root>
 					<Button type="submit" w="100%" mb="4" colorPalette="orange">
 						CREATE

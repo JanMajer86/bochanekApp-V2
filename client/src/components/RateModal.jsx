@@ -48,13 +48,13 @@ const RateModal = () => {
 					{/* STAR RATE INPUT */}
 					<Center mb="8" flexDirection={"column"}>
 						<Heading as="h3" mb="6">
-							{rating === "null" ? "rate bochánek" : "change rating"}
+							{userRating === "null" ? "rate bochánek" : "change rating"}
 						</Heading>
 						<StarRatingInput rating={rating} setRating={setRating} />
 					</Center>
 					{/* SUBMIT / CANCEL */}
 					<Button type="submit" w="100%" mb="4" colorPalette="orange">
-						UPDATE
+						{userRating === "null" ? "SEND" : "UPDATE"}
 					</Button>
 					<Button
 						onClick={() => navigate(-1)}

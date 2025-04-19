@@ -58,7 +58,7 @@ const Login = () => {
 										h="10"
 										cursor="pointer"
 									>
-										<RadioCard.ItemHiddenInput />
+										<RadioCard.ItemHiddenInput required />
 										<RadioCard.ItemControl>
 											<RadioCard.ItemText mt={"-7px"} fontSize="md">
 												{user}
