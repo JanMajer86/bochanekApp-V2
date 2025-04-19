@@ -1,6 +1,6 @@
 import { Box, Portal, Select } from "@chakra-ui/react";
 import { useGlobalContext } from "../pages/DashboardLayout";
-import { RadioButtonSelect } from "./";
+import { RadioButtonSelect, DropdownMenuSelect } from "./";
 
 const ControlPanel = ({ isVisible }) => {
 	const { dataParamsObj, handleSetParamsObj, filteredGroupedSortedData } =
@@ -26,11 +26,7 @@ const ControlPanel = ({ isVisible }) => {
 	};
 
 	return (
-		<Box
-			css={isVisible ? visible : hidden}
-			transition="all 0.3s"
-			// border="2px solid"
-		>
+		<Box css={isVisible ? visible : hidden} transition="all 0.3s">
 			{/* FILTERING */}
 			<RadioButtonSelect
 				label="filter by gender"
@@ -44,49 +40,14 @@ const ControlPanel = ({ isVisible }) => {
 				selected={dataParamsObj.genderFilter}
 				onChange={handleSetParamsObj}
 			/>
-
-			{/* LETTER SELECT */}
-			<Select.Root
-				// w="120px"
-				value={[dataParamsObj.letterFilter]}
-				alignContent={"start"}
-				onValueChange={(e) => {
-					const value = e?.value[0] || null;
-					console.log(value);
-					if (value === "all") return handleSetParamsObj("letterFilter", null);
-
-					handleSetParamsObj("letterFilter", e.value[0]);
-				}}
-			>
-				<Select.HiddenSelect />
-				<Select.Label>filter by first letter</Select.Label>
-				<Select.Control>
-					<Select.Trigger>
-						<Select.ValueText>
-							{dataParamsObj.letterFilter || "všechny písmena"}
-						</Select.ValueText>
-					</Select.Trigger>
-					<Select.IndicatorGroup>
-						<Select.Indicator />
-					</Select.IndicatorGroup>
-				</Select.Control>
-				<Portal>
-					<Select.Positioner>
-						<Select.Content>
-							{letters.map((letter) => (
-								<Select.Item
-									key={letter.label}
-									value={letter.value}
-									item={letter.value}
-								>
-									{letter.label}
-								</Select.Item>
-							))}
-						</Select.Content>
-					</Select.Positioner>
-				</Portal>
-			</Select.Root>
-
+			{/* LETTER DROPDOWN SELECT */}
+			<DropdownMenuSelect
+				label="filter by first letter"
+				value={dataParamsObj.letterFilter}
+				onChange={handleSetParamsObj}
+				filter="letterFilter"
+				data={letters}
+			/>
 			{/* GROUPING */}
 			<RadioButtonSelect
 				label="group by"

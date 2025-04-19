@@ -22,8 +22,6 @@ const DashboardLayout = () => {
 
 	const [dataParamsObj, setDataParamsObj] = useState({
 		groupBy: "letter",
-		// sortBy: "alphabet",
-		// sortDirection: "asc",
 		genderFilter: null,
 		letterFilter: null,
 		userFilter: null,
