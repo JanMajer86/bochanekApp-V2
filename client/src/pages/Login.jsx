@@ -15,7 +15,6 @@ import {
 export const action = async ({ request }) => {
 	const formData = await request.formData();
 	const data = Object.fromEntries(formData);
-	console.log(data);
 	try {
 		await customFetch.post("/auth/login", data);
 		return redirect("/all-bochaneks");

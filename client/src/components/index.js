@@ -3,6 +3,7 @@ export { default as ControlPanel } from "./ControlPanel";
 export { default as FormRow } from "./FormRow";
 export { default as FormButtonSelect } from "./FormButtonSelect";
 export { default as RadioButtonSelect } from "./RadioButtonSelect";
+export { default as SegmentControl } from "./SegmentControl";
 export { default as DropdownMenuSelect } from "./DropdownMenuSelect";
 export { default as StarRatingInput } from "./StarRatingInput";
 export { default as AverageRatingStars } from "./AverageRatingStars";

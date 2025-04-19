@@ -13,11 +13,11 @@ const RadioButtonSelect = ({
 			<RadioCard.Root
 				value={selected || ""}
 				colorPalette="orange"
-				size="xs"
+				size="sm"
 				variant="surface"
 			>
 				<RadioCard.Label>{label || name}</RadioCard.Label>
-				<Group attached>
+				<Group attached orientation="horizontal">
 					{options.map(({ label, value }) => (
 						<RadioCard.Item
 							key={label}

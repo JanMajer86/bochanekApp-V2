@@ -1,6 +1,6 @@
 import { Box, Portal, Select } from "@chakra-ui/react";
 import { useGlobalContext } from "../pages/DashboardLayout";
-import { RadioButtonSelect, DropdownMenuSelect } from "./";
+import { RadioButtonSelect, DropdownMenuSelect, SegmentControl } from "./";
 
 const ControlPanel = ({ isVisible }) => {
 	const { dataParamsObj, handleSetParamsObj, filteredGroupedSortedData } =
@@ -16,7 +16,7 @@ const ControlPanel = ({ isVisible }) => {
 	const visible = {
 		visibility: "visible",
 		opacity: 1,
-		height: "214px",
+		height: "400px",
 	};
 
 	const hidden = {
@@ -28,12 +28,24 @@ const ControlPanel = ({ isVisible }) => {
 	return (
 		<Box css={isVisible ? visible : hidden} transition="all 0.3s">
 			{/* FILTERING */}
-			<RadioButtonSelect
+			{/* <RadioButtonSelect
 				label="filter by gender"
 				name="gender"
 				filter="genderFilter"
 				options={[
 					{ label: "Oboje", value: null },
+					{ label: "Holky", value: "Female" },
+					{ label: "Kluci", value: "Male" },
+				]}
+				selected={dataParamsObj.genderFilter}
+				onChange={handleSetParamsObj}
+			/> */}
+			<SegmentControl
+				label="filter by gender"
+				name="gender"
+				filter="genderFilter"
+				options={[
+					{ label: "Oboje", value: "all" },
 					{ label: "Holky", value: "Female" },
 					{ label: "Kluci", value: "Male" },
 				]}
