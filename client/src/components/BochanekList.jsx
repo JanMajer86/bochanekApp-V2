@@ -23,8 +23,7 @@ const BochanekList = ({ bochanci }) => {
 		<Center>
 			<Grid
 				templateColumns="repeat(6, 1fr)"
-				// border={"1px solid black"}
-				w="90vw"
+				w={{ base: "95vw", lg: "90vw" }}
 				maxW="1200px"
 			>
 				{/* MAIN */}
@@ -38,15 +37,20 @@ const BochanekList = ({ bochanci }) => {
 						{/* HIDDEN BY DEFAULT */}
 						<ControlPanel isVisible={isControlPanel} />
 
-						<Heading mb="4">results: {numOfResults}</Heading>
+						<Heading mb="4" size={{ base: "sm", lg: "lg" }}>
+							results: {numOfResults}
+						</Heading>
 						{/* BOCHANEK LIST */}
 						{names.map((group) => {
 							return (
-								<Grid templateColumns={"48px auto"} key={group.key}>
-									<GridItem>
+								<Grid templateColumns={"72px auto"} key={group.key}>
+									<GridItem mb={{ base: "2", lg: 0 }}>
 										<Heading as="h2">{group.key}</Heading>
 									</GridItem>
-									<GridItem>
+									<GridItem
+										gridRow={{ base: "2", lg: "1" }}
+										gridColumn={{ base: "1/-1", lg: "2/-1" }}
+									>
 										<ListRoot>
 											{group.names.map((bochanek) => (
 												<Bochanek key={bochanek._id} {...bochanek} />
@@ -60,7 +64,10 @@ const BochanekList = ({ bochanci }) => {
 				</GridItem>
 				{/* SIDEBAR */}
 				<GridItem as="aside" colSpan={{ base: 6, lg: 1 }}>
-					<Sidebar handleControlPanel={handleControlPanel} />
+					<Sidebar
+						isControlPanel={isControlPanel}
+						handleControlPanel={handleControlPanel}
+					/>
 				</GridItem>
 			</Grid>
 		</Center>

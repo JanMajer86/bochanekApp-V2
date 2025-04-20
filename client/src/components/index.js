@@ -12,4 +12,5 @@ export { default as EditModal } from "./EditModal";
 export { default as RateModal } from "./RateModal";
 export { default as BochanekList } from "./BochanekList";
 export { default as Bochanek } from "./Bochanek";
+export { default as BochanekButton } from "./BochanekButton";
 export { default as Sidebar } from "./Sidebar";

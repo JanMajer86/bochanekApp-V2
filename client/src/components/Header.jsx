@@ -16,23 +16,33 @@ const Header = () => {
 		<Center
 			as="header"
 			align="center"
-			bgColor="orange.50"
+			bgColor="orange.100"
 			color="gray.900"
 			px="4"
 			py="2"
 			mb="4"
 		>
-			<Flex justify="space-between" width="90vw" maxW={"1200px"}>
-				<Heading size="4xl">bochanekApp</Heading>
+			<Flex
+				justify="space-between"
+				align="center"
+				width={{ base: "100vw", lg: "90vw" }}
+				maxW={"1200px"}
+			>
+				<Heading size={{ base: "2xl", lg: "4xl" }}>bochanekApp</Heading>
 				<Box>
 					<HStack>
-						<Avatar.Root colorPalette="orange">
+						{/* USER ICON & NAME */}
+						<Avatar.Root colorPalette="orange" size={{ base: "xs", lg: "md" }}>
 							<Avatar.Fallback />
 						</Avatar.Root>
-						<Text mr="8" fontWeight="semibold">
-							{user.name}
-						</Text>
-						<Button colorPalette="orange" onClick={logoutUser}>
+						<Text fontWeight="semibold">{user.name}</Text>
+						{/* LOGOUT */}
+						<Button
+							colorPalette="orange"
+							onClick={logoutUser}
+							display={{ base: "none", lg: "block" }}
+							ml={8}
+						>
 							logout
 						</Button>
 					</HStack>

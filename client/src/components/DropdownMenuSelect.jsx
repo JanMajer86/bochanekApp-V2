@@ -9,13 +9,13 @@ const DropdownMenuSelect = (props) => {
 			value={[value]}
 			onValueChange={(e) => {
 				const value = e?.value[0] || null;
-				console.log(value);
 				if (value === "all") return onChange(filter, null);
 				onChange(filter, value);
 			}}
+			w={"40"}
 		>
 			<Select.HiddenSelect />
-			<Select.Label>{label}</Select.Label>
+			<Select.Label fontWeight={"bold"}>{label}</Select.Label>
 			<Select.Control>
 				<Select.Trigger>
 					<Select.ValueText>{value || "všechny písmena"}</Select.ValueText>
