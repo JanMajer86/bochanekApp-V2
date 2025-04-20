@@ -7,6 +7,7 @@
 		"server": "nodemon --delay 500ms server.js",
 		"client": "cd ../client && npm run dev",
 		"setup-project": "npm i && cd ../client && npm i",
+		"setup-production-app": "npm i && cd ../client && npm i && npm run build",
 		"dev": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\""
 	},
 	"author": "",
