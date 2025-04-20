@@ -21,6 +21,9 @@ const Header = () => {
 			px="4"
 			py="2"
 			mb="4"
+			position={"sticky"}
+			top={0}
+			zIndex={100}
 		>
 			<Flex
 				justify="space-between"

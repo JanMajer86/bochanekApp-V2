@@ -14,10 +14,16 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 			as="aside"
 			display="flex"
 			justifyContent="space-between"
-			h={{ base: "min-content", lg: "calc(100vh - 86px)" }}
+			h={{ base: "60px", lg: "calc(100vh - 60px)" }}
+			w={{ base: "100vw", lg: "min-content" }}
 			flexDirection={{ base: "row", lg: "column" }}
 			gap="2"
-			mb={{ base: "3", lg: "0" }}
+			p="3"
+			position={"fixed"}
+			top={{ base: 12, lg: 16 }}
+			left={{ base: 0, lg: "auto" }}
+			zIndex={100}
+			bg={"white"}
 		>
 			{/* CONTROL PANEL CONTROL */}
 			<Button

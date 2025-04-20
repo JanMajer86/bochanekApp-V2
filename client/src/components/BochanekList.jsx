@@ -37,7 +37,11 @@ const BochanekList = ({ bochanci }) => {
 						{/* HIDDEN BY DEFAULT */}
 						<ControlPanel isVisible={isControlPanel} />
 
-						<Heading mb="4" size={{ base: "sm", lg: "lg" }}>
+						<Heading
+							mt={{ base: 12, lg: 0 }}
+							mb="4"
+							size={{ base: "sm", lg: "lg" }}
+						>
 							results: {numOfResults}
 						</Heading>
 						{/* BOCHANEK LIST */}
@@ -63,7 +67,7 @@ const BochanekList = ({ bochanci }) => {
 					</Box>
 				</GridItem>
 				{/* SIDEBAR */}
-				<GridItem as="aside" colSpan={{ base: 6, lg: 1 }}>
+				<GridItem as="aside" colSpan={{ base: 6, lg: 1 }} gridRow={1}>
 					<Sidebar
 						isControlPanel={isControlPanel}
 						handleControlPanel={handleControlPanel}
