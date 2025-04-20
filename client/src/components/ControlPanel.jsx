@@ -28,18 +28,6 @@ const ControlPanel = ({ isVisible }) => {
 	return (
 		<Box css={isVisible ? visible : hidden} transition="all 0.3s">
 			{/* FILTERING */}
-			{/* <RadioButtonSelect
-				label="filter by gender"
-				name="gender"
-				filter="genderFilter"
-				options={[
-					{ label: "Oboje", value: null },
-					{ label: "Holky", value: "Female" },
-					{ label: "Kluci", value: "Male" },
-				]}
-				selected={dataParamsObj.genderFilter}
-				onChange={handleSetParamsObj}
-			/> */}
 			<SegmentControl
 				label="filter by gender"
 				name="gender"
@@ -50,6 +38,7 @@ const ControlPanel = ({ isVisible }) => {
 					{ label: "Kluci", value: "Male" },
 				]}
 				selected={dataParamsObj.genderFilter}
+				defaultValue={null}
 				onChange={handleSetParamsObj}
 			/>
 			{/* LETTER DROPDOWN SELECT */}
@@ -61,7 +50,7 @@ const ControlPanel = ({ isVisible }) => {
 				data={letters}
 			/>
 			{/* GROUPING */}
-			<RadioButtonSelect
+			<SegmentControl
 				label="group by"
 				name="group"
 				filter="groupBy"
@@ -71,6 +60,7 @@ const ControlPanel = ({ isVisible }) => {
 					{ label: "Uživatel", value: "user" },
 				]}
 				selected={dataParamsObj.groupBy}
+				defaultValue="letter"
 				onChange={handleSetParamsObj}
 			/>
 		</Box>

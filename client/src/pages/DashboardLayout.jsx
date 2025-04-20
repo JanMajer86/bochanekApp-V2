@@ -24,7 +24,7 @@ const DashboardLayout = () => {
 		groupBy: "letter",
 		genderFilter: null,
 		letterFilter: null,
-		userFilter: null,
+		userFilter: false,
 	});
 
 	const filteredGroupedSortedData = useMemo(() => {
@@ -79,7 +79,6 @@ const DashboardLayout = () => {
 
 	const handleSetParamsObj = (key, value) => {
 		setDataParamsObj((prev) => ({ ...prev, [key]: value }));
-		console.log(dataParamsObj);
 	};
 
 	const logoutUser = async () => {
