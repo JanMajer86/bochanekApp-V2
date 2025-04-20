@@ -11,7 +11,7 @@ const SegmentControl = ({
 }) => {
 	return (
 		<Box>
-			<Text mb={2} fontWeight="bold">
+			<Text mb={2} textStyle={"sm"} fontWeight={"semibold"}>
 				{label || name}
 			</Text>
 			<SegmentGroup.Root
@@ -39,7 +39,7 @@ const SegmentControl = ({
 							value={value}
 							color={selected === value ? "white" : "black"}
 							cursor={"pointer"}
-							w="24"
+							w="20"
 							justifyContent={"center"}
 							css={{
 								"&::before": { content: "none" },

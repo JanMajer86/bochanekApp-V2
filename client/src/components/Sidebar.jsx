@@ -25,16 +25,24 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 				variant={isControlPanel ? "surface" : "outline"}
 				onClick={handleControlPanel}
 				size={{ base: "sm" }}
+				flex={{ base: "none", sm: "1", lg: "none" }}
 			>
 				<Icon as={MdOutlineSettings} />
-				<Text display={{ base: "none", lg: "block" }}>CONTROL PANEL</Text>
+				<Text display={{ base: "none", sm: "block" }}>CONTROL PANEL</Text>
 			</Button>
 			{/* ADD NEW BOCHÁNEK BUTTON */}
-			<Link to="/all-bochaneks/create-bochanek">
+			<Link
+				to="/all-bochaneks/create-bochanek"
+				style={{
+					flex: { base: 1, lg: "none" },
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
 				<Button
 					colorPalette="orange"
 					variant="solid"
-					w={{ lg: "100%" }}
+					w={{ sm: "100%" }}
 					size={{ base: "sm" }}
 				>
 					<Icon as={MdOutlineAddCircleOutline} /> ADD NEW
@@ -47,11 +55,11 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 				variant="outline"
 				display={{ base: "block", lg: "none" }}
 				size={{ base: "sm" }}
+				flex={{ base: "none", sm: "1" }}
 			>
-				{" "}
 				<HStack>
 					<Icon as={IoMdLogOut} />
-					<Text display={{ base: "none" }}>LOGOUT</Text>
+					<Text display={{ base: "none", sm: "block" }}>LOGOUT</Text>
 				</HStack>
 			</Button>
 		</Box>

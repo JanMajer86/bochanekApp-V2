@@ -11,8 +11,8 @@ import { TiDeleteOutline } from "react-icons/ti";
 import { AverageRatingStars, BochanekButton } from "./";
 import {
 	Avatar,
-	Button,
 	Card,
+	Flex,
 	Grid,
 	GridItem,
 	HStack,
@@ -42,11 +42,18 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 			<Card.Body>
 				<Grid
 					templateColumns="repeat(6, 1fr)"
-					justifyContent="center"
 					justifyItems={{ base: "center" }}
+					alignItems={"center"}
+					alignContent={"center"}
+					gap="2"
 				>
 					{/* NAME */}
-					<GridItem colSpan={{ base: 6, lg: 2 }} mb="2" w="100%">
+					<GridItem
+						colSpan={{ base: 6, md: 2, lg: 1 }}
+						gridRow={{ base: 1 }}
+						w="100%"
+						h="100%"
+					>
 						<HStack justifyContent={"space-between"}>
 							<Avatar.Root mr="2" size={{ base: "xs", lg: "md" }}>
 								<Avatar.Fallback name={name[0]} />
@@ -66,8 +73,8 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 					{/* RATING */}
 					<GridItem
 						alignSelf={"center"}
-						colSpan={{ base: 6, lg: "auto" }}
-						mb="6"
+						colSpan={{ base: 6, md: 2, lg: 1 }}
+						rowStart={{ base: 2, lg: 1 }}
 					>
 						{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
 						{averageRating > 0 ? (
@@ -79,27 +86,49 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 
 					{/* BUTTONS */}
 					<GridItem
-						colSpan={{ base: 6, lg: 3 }}
+						colSpan={{ base: 6, md: 2, lg: 4 }}
+						gridColumnStart={{ base: 1, md: 5, lg: 3 }}
+						rowSpan={{ base: 1, md: 2, lg: 1 }}
 						justifySelf={{ base: "center", lg: "end" }}
 						w="100%"
 					>
-						<HStack gap="6" justifyContent={"space-between"}>
+						<Flex
+							gap="1"
+							flexDirection={{ base: "row", md: "column", lg: "row" }}
+							justifyContent={"space-between"}
+							// alignItems={"baseline"}
+						>
 							{isOwned ? (
 								<>
 									<Link
 										to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
 											userRating ?? null
 										}`}
+										style={{
+											flex: 1,
+											display: "flex",
+										}}
 									>
 										<BochanekButton
 											icon={IoStarOutline}
 											text={isRated ? "Change Rating" : "Rate"}
 										/>
 									</Link>
-									<Link to={`/all-bochaneks/edit-bochanek/${_id}`}>
+									<Link
+										to={`/all-bochaneks/edit-bochanek/${_id}`}
+										style={{
+											flex: 1,
+											display: "flex",
+											justifyContent: "center",
+										}}
+									>
 										<BochanekButton icon={FaEdit} text="Edit" />
 									</Link>
-									<Form method="POST" action={`/delete-bochanek/${_id}`}>
+									<Form
+										method="POST"
+										action={`/delete-bochanek/${_id}`}
+										style={{ flex: 1, display: "flex", justifyContent: "end" }}
+									>
 										<BochanekButton icon={TiDeleteOutline} text="Delete" />
 									</Form>
 								</>
@@ -108,14 +137,19 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 									to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
 										userRating ?? null
 									}`}
+									style={{
+										flex: 1,
+										display: "flex",
+										justifyContent: "center",
+									}}
 								>
-									<Button variant="outline">
-										<Icon as={IoStarOutline} />
-										{isRated ? "Change Rating" : "Rate"}
-									</Button>
+									<BochanekButton
+										icon={IoStarOutline}
+										text={isRated ? "Change Rating" : "Rate"}
+									/>
 								</Link>
 							)}
-						</HStack>
+						</Flex>
 					</GridItem>
 				</Grid>
 			</Card.Body>
