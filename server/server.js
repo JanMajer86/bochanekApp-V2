@@ -11,7 +11,7 @@ import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./client/dist")));
+app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -24,6 +24,10 @@ import bochanekRouter from "./routes/bochanekRouter.js";
 // ROUTES
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/bochanek", authenticateUser, bochanekRouter);
+
+app.get("*", (req, res) => {
+	res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+});
 // non-valid route
 app.use("*", (req, res) => {
 	res.status(404).json({ msg: "not found" });
