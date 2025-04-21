@@ -38,7 +38,7 @@ const BochanekList = ({ bochanci }) => {
 						<ControlPanel isVisible={isControlPanel} />
 
 						<Heading
-							mt={{ base: 12, lg: 0 }}
+							mt={{ base: 0, lg: 0 }}
 							mb="4"
 							size={{ base: "sm", lg: "lg" }}
 						>
@@ -47,7 +47,7 @@ const BochanekList = ({ bochanci }) => {
 						{/* BOCHANEK LIST */}
 						{names.map((group) => {
 							return (
-								<Grid templateColumns={"72px auto"} key={group.key}>
+								<Grid templateColumns={"24 auto"} key={group.key}>
 									<GridItem mb={{ base: "2", lg: 0 }}>
 										<Heading as="h2">{group.key}</Heading>
 									</GridItem>

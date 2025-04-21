@@ -1,4 +1,4 @@
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate, useNavigation } from "react-router-dom";
 import {
 	Box,
 	Button,
@@ -25,6 +25,8 @@ export const action = async ({ request }) => {
 
 const CreateModal = () => {
 	const navigate = useNavigate();
+	const navigation = useNavigation();
+	const isSubmitting = navigation.state === "submitting";
 
 	return (
 		<Center
@@ -34,7 +36,7 @@ const CreateModal = () => {
 			position="absolute"
 			top="0"
 			left="0"
-			zIndex={10}
+			zIndex={11}
 		>
 			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
 				<Heading as="h3" mb="8">
@@ -66,13 +68,7 @@ const CreateModal = () => {
 									</RadioCard.ItemText>
 								</RadioCard.ItemControl>
 							</RadioCard.Item>
-							<RadioCard.Item
-								// name="gender"
-								value="Female"
-								p="0"
-								h="10"
-								cursor="pointer"
-							>
+							<RadioCard.Item value="Female" p="0" h="10" cursor="pointer">
 								<RadioCard.ItemHiddenInput />
 								<RadioCard.ItemControl>
 									<RadioCard.ItemText mt={"-7px"} fontSize="md">
@@ -82,8 +78,15 @@ const CreateModal = () => {
 							</RadioCard.Item>
 						</Group>
 					</RadioCard.Root>
-					<Button type="submit" w="100%" mb="4" colorPalette="orange">
-						CREATE
+					{/* SUBMIT */}
+					<Button
+						type="submit"
+						w="100%"
+						mb="4"
+						colorPalette="orange"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? "CREATING..." : "CREATE"}
 					</Button>
 					<Button
 						onClick={() => navigate(-1)}

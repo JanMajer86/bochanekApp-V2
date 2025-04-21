@@ -23,7 +23,7 @@ const Header = () => {
 			mb="4"
 			position={"sticky"}
 			top={0}
-			zIndex={100}
+			zIndex={10}
 		>
 			<Flex
 				justify="space-between"

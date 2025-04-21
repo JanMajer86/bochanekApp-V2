@@ -1,4 +1,6 @@
 import { Form, Link } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
+
 import { useGlobalContext } from "../pages/DashboardLayout";
 import { IoMale, IoFemale, IoStarOutline } from "react-icons/io5";
 
@@ -10,6 +12,7 @@ import { FaEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
 import { AverageRatingStars, BochanekButton } from "./";
 import {
+	chakra,
 	Avatar,
 	Card,
 	Flex,
@@ -25,14 +28,16 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
 	const userRating = ratings.filter((r) => r.user === user.userId)[0]?.value;
-	const isRated = userRating !== undefined;
+	// const isRated = userRating !== undefined;
+
+	const ChakraForm = chakra(Form);
 
 	return (
 		<Card.Root
 			colorPalette="orange"
 			color="black"
 			bg="gray.100"
-			shadow={"sm"}
+			shadow={"xs"}
 			size={{ base: "sx", lg: "sm" }}
 			mx={{ base: 0, lg: 4 }}
 			mb="4"
@@ -41,7 +46,7 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 		>
 			<Card.Body>
 				<Grid
-					templateColumns="repeat(6, 1fr)"
+					templateColumns="repeat(12, 1fr)"
 					justifyItems={{ base: "center" }}
 					alignItems={"center"}
 					alignContent={"center"}
@@ -49,13 +54,13 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 				>
 					{/* NAME */}
 					<GridItem
-						colSpan={{ base: 6, md: 2, lg: 1 }}
+						colSpan={{ base: 12, md: 4, lg: 5 }}
 						gridRow={{ base: 1 }}
 						w="100%"
 						h="100%"
 					>
 						<HStack justifyContent={"space-between"}>
-							<Avatar.Root mr="2" size={{ base: "xs", lg: "md" }}>
+							<Avatar.Root mr="2" size={{ base: "xs", lg: "sm" }}>
 								<Avatar.Fallback name={name[0]} />
 							</Avatar.Root>
 							<Text
@@ -66,28 +71,28 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 							>
 								{name}
 							</Text>
-							<Icon as={isMale ? IoMale : IoFemale} w="40px" />
+							<Icon as={isMale ? IoMale : IoFemale} w="40px" boxSize={6} />
 						</HStack>
 					</GridItem>
 
 					{/* RATING */}
 					<GridItem
 						alignSelf={"center"}
-						colSpan={{ base: 6, md: 2, lg: 1 }}
+						colSpan={{ base: 12, md: 4, lg: 2 }}
 						rowStart={{ base: 2, lg: 1 }}
 					>
 						{/* RENDER AVERAGE RATING HERE, CHANGE RATING IN POPUP */}
 						{averageRating > 0 ? (
 							<AverageRatingStars avgRating={averageRating} />
 						) : (
-							<span>no rating</span>
+							<Text fontSize="md">no rating</Text>
 						)}
 					</GridItem>
 
 					{/* BUTTONS */}
 					<GridItem
-						colSpan={{ base: 6, md: 2, lg: 4 }}
-						gridColumnStart={{ base: 1, md: 5, lg: 3 }}
+						colSpan={{ base: 12, md: 4, lg: 5 }}
+						gridColumnStart={{ base: 1, md: 9, lg: 8 }}
 						rowSpan={{ base: 1, md: 2, lg: 1 }}
 						justifySelf={{ base: "center", lg: "end" }}
 						w="100%"
@@ -96,58 +101,52 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 							gap="1"
 							flexDirection={{ base: "row", md: "column", lg: "row" }}
 							justifyContent={"space-between"}
-							// alignItems={"baseline"}
 						>
 							{isOwned ? (
 								<>
-									<Link
+									<ChakraLink
+										as={Link}
 										to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
 											userRating ?? null
 										}`}
-										style={{
-											flex: 1,
-											display: "flex",
-										}}
+										flex={1}
 									>
-										<BochanekButton
-											icon={IoStarOutline}
-											text={isRated ? "Change Rating" : "Rate"}
-										/>
-									</Link>
-									<Link
+										<BochanekButton icon={IoStarOutline} text="Rate" />
+									</ChakraLink>
+									<ChakraLink
+										as={Link}
 										to={`/all-bochaneks/edit-bochanek/${_id}`}
-										style={{
-											flex: 1,
-											display: "flex",
-											justifyContent: "center",
-										}}
+										flex={1}
+										justifyContent="center"
 									>
 										<BochanekButton icon={FaEdit} text="Edit" />
-									</Link>
-									<Form
+									</ChakraLink>
+									<ChakraForm
 										method="POST"
 										action={`/delete-bochanek/${_id}`}
-										style={{ flex: 1, display: "flex", justifyContent: "end" }}
+										display="flex"
+										justifyContent="end"
+										flex="1"
 									>
-										<BochanekButton icon={TiDeleteOutline} text="Delete" />
-									</Form>
+										<BochanekButton
+											icon={TiDeleteOutline}
+											text="Delete"
+											type="submit"
+										/>
+									</ChakraForm>
 								</>
 							) : (
-								<Link
+								<ChakraLink
+									as={Link}
 									to={`/all-bochaneks/rate-bochanek/${_id}?userRating=${
 										userRating ?? null
 									}`}
-									style={{
-										flex: 1,
-										display: "flex",
-										justifyContent: "center",
-									}}
+									flex={1}
+									display="flex"
+									justifyContent={"center"}
 								>
-									<BochanekButton
-										icon={IoStarOutline}
-										text={isRated ? "Change Rating" : "Rate"}
-									/>
-								</Link>
+									<BochanekButton icon={IoStarOutline} text="Rate" />
+								</ChakraLink>
 							)}
 						</Flex>
 					</GridItem>
