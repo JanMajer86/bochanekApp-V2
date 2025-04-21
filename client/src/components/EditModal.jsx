@@ -45,9 +45,9 @@ const Modal = () => {
 			position="absolute"
 			top="0"
 			left="0"
-			zIndex={10}
+			zIndex={20}
 		>
-			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
+			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={25}>
 				<Heading as="h3" mb="8">
 					Edit Bochánek
 				</Heading>

@@ -47,7 +47,7 @@ const BochanekList = ({ bochanci }) => {
 						{/* BOCHANEK LIST */}
 						{names.map((group) => {
 							return (
-								<Grid templateColumns={"24 auto"} key={group.key}>
+								<Grid templateColumns={"78px auto"} key={group.key}>
 									<GridItem mb={{ base: "2", lg: 0 }}>
 										<Heading as="h2">{group.key}</Heading>
 									</GridItem>
