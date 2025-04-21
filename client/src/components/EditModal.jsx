@@ -10,6 +10,7 @@ import {
 	Input,
 	RadioCard,
 } from "@chakra-ui/react";
+import { useGlobalContext } from "@/pages/DashboardLayout";
 
 export const loader = async ({ params }) => {
 	try {
@@ -36,6 +37,7 @@ export const action = async ({ request, params }) => {
 const Modal = () => {
 	const data = useLoaderData();
 	const navigate = useNavigate();
+	const { handleModalOpen } = useGlobalContext();
 
 	return (
 		<Center
@@ -106,11 +108,20 @@ const Modal = () => {
 							</RadioCard.Item>
 						</HStack>
 					</RadioCard.Root>
-					<Button type="submit" w="100%" mb="4" colorPalette="orange">
+					<Button
+						type="submit"
+						w="100%"
+						mb="4"
+						colorPalette="orange"
+						onClick={handleModalOpen}
+					>
 						UPDATE
 					</Button>
 					<Button
-						onClick={() => navigate(-1)}
+						onClick={() => {
+							handleModalOpen();
+							navigate(-1);
+						}}
 						w="100%"
 						colorPalette="orange"
 						variant="outline"

@@ -3,6 +3,7 @@ import customFetch from "../utils/customFetch";
 import { StarRatingInput } from "./";
 import { useState } from "react";
 import { Center, Box, Button, Heading } from "@chakra-ui/react";
+import { useGlobalContext } from "@/pages/DashboardLayout";
 
 export const loader = async ({ request, params }) => {
 	try {
@@ -32,6 +33,7 @@ const RateModal = () => {
 	const navigate = useNavigate();
 	const { userRating } = useLoaderData();
 	const [rating, setRating] = useState(userRating);
+	const { handleModalOpen } = useGlobalContext();
 
 	return (
 		<Center
@@ -41,9 +43,9 @@ const RateModal = () => {
 			position="absolute"
 			top="0"
 			left="0"
-			zIndex={10}
+			zIndex={20}
 		>
-			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={20}>
+			<Box bg="gray.50" w="520px" px="20" py="12" borderRadius={6} zIndex={25}>
 				<Form method="POST">
 					{/* STAR RATE INPUT */}
 					<Center mb="8" flexDirection={"column"}>
@@ -53,14 +55,24 @@ const RateModal = () => {
 						<StarRatingInput rating={rating} setRating={setRating} />
 					</Center>
 					{/* SUBMIT / CANCEL */}
-					<Button type="submit" w="100%" mb="4" colorPalette="orange">
+					<Button
+						type="submit"
+						w="100%"
+						mb="4"
+						colorPalette="orange"
+						onClick={handleModalOpen}
+					>
 						{userRating === "null" ? "SEND" : "UPDATE"}
 					</Button>
 					<Button
-						onClick={() => navigate(-1)}
+						onClick={() => {
+							handleModalOpen();
+							navigate(-1);
+						}}
 						w="100%"
 						colorPalette="orange"
 						variant="outline"
+						o
 					>
 						CANCEL
 					</Button>

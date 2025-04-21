@@ -8,7 +8,7 @@ import { MdOutlineSettings, MdOutlineAddCircleOutline } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
 
 const Sidebar = ({ isControlPanel, handleControlPanel }) => {
-	const { logoutUser } = useGlobalContext();
+	const { logoutUser, handleModalOpen } = useGlobalContext();
 
 	return (
 		<Box
@@ -49,6 +49,7 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 					variant="solid"
 					w={{ sm: "100%" }}
 					size={{ base: "sm" }}
+					onClick={handleModalOpen}
 				>
 					<Icon as={MdOutlineAddCircleOutline} /> ADD NEW
 				</Button>

@@ -10,6 +10,7 @@ import {
 	RadioCard,
 } from "@chakra-ui/react";
 import customFetch from "../utils/customFetch";
+import { useGlobalContext } from "@/pages/DashboardLayout";
 
 export const action = async ({ request }) => {
 	const formData = await request.formData();
@@ -27,6 +28,7 @@ const CreateModal = () => {
 	const navigate = useNavigate();
 	const navigation = useNavigation();
 	const isSubmitting = navigation.state === "submitting";
+	const { handleModalOpen } = useGlobalContext();
 
 	return (
 		<Center
@@ -84,12 +86,16 @@ const CreateModal = () => {
 						w="100%"
 						mb="4"
 						colorPalette="orange"
+						onClick={handleModalOpen}
 						disabled={isSubmitting}
 					>
 						{isSubmitting ? "CREATING..." : "CREATE"}
 					</Button>
 					<Button
-						onClick={() => navigate(-1)}
+						onClick={() => {
+							handleModalOpen();
+							navigate(-1);
+						}}
 						w="100%"
 						colorPalette="orange"
 						variant="outline"

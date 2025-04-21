@@ -24,10 +24,11 @@ import {
 } from "@chakra-ui/react";
 
 const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
-	const { user } = useGlobalContext();
+	const { user, handleModalOpen } = useGlobalContext();
 	const isOwned = user.name === createdBy;
 	const isMale = gender === "Male";
 	const userRating = ratings.filter((r) => r.user === user.userId)[0]?.value;
+
 	// const isRated = userRating !== undefined;
 
 	const ChakraForm = chakra(Form);
@@ -110,6 +111,7 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 											userRating ?? null
 										}`}
 										flex={1}
+										onClick={handleModalOpen}
 									>
 										<BochanekButton icon={IoStarOutline} text="Rate" />
 									</ChakraLink>
@@ -118,6 +120,7 @@ const Bochanek = ({ _id, name, gender, createdBy, ratings, averageRating }) => {
 										to={`/all-bochaneks/edit-bochanek/${_id}`}
 										flex={1}
 										justifyContent="center"
+										onClick={handleModalOpen}
 									>
 										<BochanekButton icon={FaEdit} text="Edit" />
 									</ChakraLink>

@@ -1,6 +1,6 @@
 import { useLoaderData, Outlet, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
-import { useContext, createContext, useMemo, useState } from "react";
+import { useContext, createContext, useMemo, useState, useEffect } from "react";
 import { Header, BochanekList } from "../components";
 
 export const loader = async () => {
@@ -19,6 +19,11 @@ const DashboardLayout = () => {
 	const { data } = useLoaderData();
 	const user = data.user;
 	const bochanci = data.bochanci;
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const handleModalOpen = () => {
+		setIsModalOpen(!isModalOpen);
+	};
 
 	const [dataParamsObj, setDataParamsObj] = useState({
 		groupBy: "letter",
@@ -86,6 +91,16 @@ const DashboardLayout = () => {
 		navigate("/");
 	};
 
+	useEffect(() => {
+		if (isModalOpen) {
+			document.body.style.overflowY = "hidden";
+		} else {
+			document.body.style.overflowY = "auto";
+		}
+	});
+
+	console.log(isModalOpen);
+
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -93,6 +108,7 @@ const DashboardLayout = () => {
 				logoutUser,
 				dataParamsObj,
 				handleSetParamsObj,
+				handleModalOpen,
 				filteredGroupedSortedData,
 			}}
 		>
