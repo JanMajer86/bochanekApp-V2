@@ -78,7 +78,13 @@ const Login = () => {
 
 					{/* SUBMIT BUTTON  */}
 
-					<Button type="submit" colorPalette="orange" w="100%" h="10">
+					<Button
+						type="submit"
+						colorPalette="orange"
+						w="100%"
+						h="10"
+						disabled={isSubmitting}
+					>
 						{isSubmitting ? "logging in..." : "login"}
 					</Button>
 				</Form>

@@ -7,6 +7,7 @@ const ControlPanel = ({ isVisible }) => {
 		useGlobalContext();
 
 	const { availableLetters } = filteredGroupedSortedData;
+
 	const lettersObs = availableLetters.map((letter) => ({
 		label: letter,
 		value: letter,
@@ -16,7 +17,7 @@ const ControlPanel = ({ isVisible }) => {
 	const visible = {
 		visibility: "visible",
 		opacity: 1,
-		height: { base: "212px", lg: "24" },
+		height: { base: "52", lg: "24" },
 	};
 
 	const hidden = {
@@ -26,7 +27,12 @@ const ControlPanel = ({ isVisible }) => {
 	};
 
 	return (
-		<Box css={isVisible ? visible : hidden} transition="all 0.3s">
+		<Box
+			css={isVisible ? visible : hidden}
+			transition="all 0.3s"
+			mt={{ base: "48px", lg: 0 }}
+			mb={{ base: isVisible ? "2" : "0" }}
+		>
 			<Center>
 				<Flex
 					direction={{ base: "column", lg: "row" }}

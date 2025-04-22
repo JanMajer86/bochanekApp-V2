@@ -1,5 +1,6 @@
 import { Box, Button, HStack, Icon, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 import { useGlobalContext } from "../pages/DashboardLayout";
 
@@ -7,7 +8,7 @@ import { MdOutlineSettings, MdOutlineAddCircleOutline } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
 
 const Sidebar = ({ isControlPanel, handleControlPanel }) => {
-	const { logoutUser } = useGlobalContext();
+	const { logoutUser, handleModalOpen } = useGlobalContext();
 
 	return (
 		<Box
@@ -22,10 +23,10 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 			position={"fixed"}
 			top={{ base: 12, lg: 16 }}
 			left={{ base: 0, lg: "auto" }}
-			zIndex={100}
+			zIndex={10}
 			bg={"white"}
 		>
-			{/* CONTROL PANEL CONTROL */}
+			{/* CONTROL PANEL BUTTON */}
 			<Button
 				colorPalette="orange"
 				variant={isControlPanel ? "surface" : "outline"}
@@ -37,23 +38,22 @@ const Sidebar = ({ isControlPanel, handleControlPanel }) => {
 				<Text display={{ base: "none", sm: "block" }}>CONTROL PANEL</Text>
 			</Button>
 			{/* ADD NEW BOCHÁNEK BUTTON */}
-			<Link
+			<ChakraLink
+				as={Link}
 				to="/all-bochaneks/create-bochanek"
-				style={{
-					flex: { base: 1, lg: "none" },
-					display: "flex",
-					justifyContent: "center",
-				}}
+				flex={{ base: 1, lg: "none" }}
+				justifyContent="center"
 			>
 				<Button
 					colorPalette="orange"
 					variant="solid"
 					w={{ sm: "100%" }}
 					size={{ base: "sm" }}
+					onClick={handleModalOpen}
 				>
 					<Icon as={MdOutlineAddCircleOutline} /> ADD NEW
 				</Button>
-			</Link>
+			</ChakraLink>
 			{/* LOGOUT (HIDDEN WHEN LG)  */}
 			<Button
 				colorPalette="orange"
