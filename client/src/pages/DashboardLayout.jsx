@@ -2,6 +2,7 @@ import { useLoaderData, Outlet, useNavigate } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { useContext, createContext, useMemo, useState, useEffect } from "react";
 import { Header, BochanekList } from "../components";
+import { dataProcessing } from "../utils/dataProcessing";
 
 export const loader = async () => {
 	try {
@@ -33,53 +34,7 @@ const DashboardLayout = () => {
 	});
 
 	const filteredGroupedSortedData = useMemo(() => {
-		if (!Array.isArray(bochanci)) {
-			console.error("bochanci is not array!", bochanci);
-			return { processed: [], results: 0, availableLetters: [] };
-		}
-
-		// *** FILTERING ***
-		const { genderFilter, letterFilter, userFilter } = dataParamsObj;
-		const filterFn = (item) =>
-			(!genderFilter || item.gender === genderFilter) &&
-			(!userFilter || item.createdBy === userFilter);
-
-		const filteredData = bochanci.filter(filterFn);
-
-		// *** GET AVAILABLE LETTERS ***
-		const availableLetters = Array.from(
-			new Set(bochanci.map((item) => item.name[0]?.toUpperCase()))
-		).sort((a, b) => a.localeCompare(b, "cs"));
-
-		const letterFiltered =
-			letterFilter && typeof letterFilter === "string"
-				? filteredData.filter(
-						(item) => item.name[0]?.toUpperCase() === letterFilter.toUpperCase()
-				  )
-				: filteredData;
-
-		// *** GROUPING ***
-		const { groupBy } = dataParamsObj;
-		let groupFn;
-		if (groupBy === "letter") groupFn = (item) => item.name[0];
-		if (groupBy === "gender") groupFn = (item) => item.gender;
-		if (groupBy === "user") groupFn = (item) => item.createdBy;
-
-		const groupedData = letterFiltered.reduce((acc, item) => {
-			const key = groupFn(item);
-			if (!acc[key]) acc[key] = [];
-			acc[key].push(item);
-			return acc;
-		}, {});
-
-		const processed = Object.entries(groupedData)
-			.map(([key, names]) => ({
-				key,
-				names,
-			}))
-			.sort((a, b) => a.key.localeCompare(b.key, "cs"));
-
-		return { processed, results: letterFiltered.length, availableLetters };
+		return dataProcessing(bochanci, dataParamsObj);
 	}, [bochanci, dataParamsObj]);
 
 	const handleSetParamsObj = (key, value) => {
@@ -98,8 +53,6 @@ const DashboardLayout = () => {
 			document.body.style.overflowY = "auto";
 		}
 	});
-
-	console.log(isModalOpen);
 
 	return (
 		<GlobalContext.Provider
